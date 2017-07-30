@@ -1,0 +1,9 @@
+.footerNav{padding-bottom: 50px;}
+	/*首页专区*/
+.produst-group{line-height: 1.219rem;width: 100%;border-top: .062rem solid #eeb40c;background: #f1f1f1;}
+.produst-group .produst-group-title{line-height: 1.188rem;height: 1.188rem;padding: 0 .312rem;background-color: #fff;}
+.produst-group .produst-group-title span{font-size: .438rem;margin-left: .156rem;}
+.produst-group .produst-group-title .more{font-size: .375rem;}
+.produst-list{padding: 0 .156rem .312rem;}
+.produst-list .more{font-size: .375rem;text-align: center;display: block;}
+	.produst-list:after{position: relative;display: block;visibility: hidden;clear: both;content: '';}

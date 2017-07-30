@@ -1,0 +1,118 @@
+<template>
+	<div class="ProdustList">
+		
+		<!-- 搜索框 开始 -->
+		<form v-on:submit.prevent="onSubmit">
+		<transition name="slide">
+			<div class="search" v-show="isSeachBar">
+				<input type="text" v-model="SearchKeyWord" placeholder="搜索您感兴趣的商品">
+			</div>
+		</transition>
+		</form>
+
+		<!-- 搜索框 结束 -->
+		<!-- 专区商品列表 开始 -->
+		<div class="index-prefecture-main">
+			<div class="produst-list">
+				<ProdustItem v-for="(item,index) in ProdustListData" :seller="item" :key="index"></ProdustItem>
+				<span class="more" v-if="Loadstatus==1">加载中..</span>
+				<span class="more" v-if="Loadstatus==2">无更多数据</span>
+				<span class="more" v-if="Loadstatus==0">上拉加载更多</span>
+			</div>
+		</div>
+
+	</div>
+</template>
+
+<script type="text/javascript">
+
+require('./ProdustList.css');
+
+import axios from 'axios'
+import ProdustItem from '@/components/Goods/ProdustItem'
+	
+export default{
+	data(){
+		return {
+			Pagesize : 8,
+			No : 1,
+			SearchKeyWord : this.$route.query.keyword || '',
+			ProdustListData: [],
+			Loadstatus : 0,//上拉加载状态 0:未加载 1:加载中 2:所有加载完成
+			isNeedLoad : true,
+			isSeachBar: true
+		}
+	},
+	created(){
+		this.GetProdustListData();
+		this.ListenScroll();
+	},
+	methods:{
+		onSubmit(){
+			//默认搜索请求
+			this.ProdustListData = [];
+			this.GetProdustListData();
+		},
+		GetProdustListData(callback){
+			let _callback;
+			if(callback && typeof callback == 'function') 
+				_callback=callback();
+
+			let _self = this;
+			axios.request({
+				url: 'http://localhost/produstlist.php',
+				type: 'get',
+				params:{
+					pagesize : _self.Pagesize,
+					No : _self.No,
+					keyword : _self.SearchKeyWord
+				}
+			}).then((res)=>{
+				if(res.data.status == 0){
+					if(res.data.goods.length == 0){
+						_self.Loadstatus = 2;
+						_self.isNeedLoad = false;
+						_callback;
+						return;
+					}else if(res.data.goods.length < _self.PageSize){
+						_self.Loadstatus = 2;
+					}else{
+						_self.Loadstatus = 0;
+					}
+					_self.ProdustListData = _self.ProdustListData.concat(res.data.goods);
+					_callback;
+				}
+			});
+		},
+		ListenScroll(){
+			//监听滚动
+			let _self = this;
+			let scrolledTop = 0;
+
+			window.addEventListener('scroll',function(){
+				//触底加载
+				if(_self.isNeedLoad){
+					if(document.body.scrollHeight - window.innerHeight <= document.body.scrollTop){
+						_self.isNeedLoad = false;
+						_self.No += 1;
+						_self.GetProdustListData(function(){
+							_self.isNeedLoad = true;
+						});
+					}
+				}
+				//搜索栏效果
+				if(document.body.scrollTop > scrolledTop){
+					_self.isSeachBar = false;
+				}else{
+					_self.isSeachBar = true;
+				}
+				scrolledTop = document.body.scrollTop;
+			})
+		},
+	},
+	components:{
+		ProdustItem
+	}
+}
+
+</script>
