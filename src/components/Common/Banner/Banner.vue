@@ -10,8 +10,6 @@
 
 <script type="text/javascript">
 
-require('./Banner.css');
-
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 
 export default{
@@ -33,3 +31,5 @@ export default{
 }
 
 </script>
+
+<style type="text/css" src="./Banner.css"></style>

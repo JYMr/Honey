@@ -1,14 +1,15 @@
 <template>
 	<div class="nav">
         <div class="tab" v-for="item in NavList">
-            <router-link :to="item.link">{{item.title}}</router-link>
+            <router-link :to="item.link">
+            	<span :class="item.class"></span>
+            	{{item.title}}
+            </router-link>
         </div>
     </div>
 </template>
 
 <script type="text/javascript">
-
-require('./Foot.css');
 	
 export default{
 	data(){
@@ -16,15 +17,18 @@ export default{
 			NavList:[
 				{
 					link: '/Index',
-					title: '首页'
+					title: '首页',
+					class: 'index'
 				},
 				{
 					link: '/Cart',
-					title: '购物车'
+					title: '购物车',
+					class: 'cart'
 				},
 				{
 					link: '/Home',
-					title: '我的'
+					title: '我的',
+					class: 'home'
 				}
 			]
 		}
@@ -34,3 +38,5 @@ export default{
 	}
 }
 </script>
+
+<style type="text/css" src="./Foot.css"></style>

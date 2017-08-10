@@ -8,7 +8,7 @@
 			</div>
 		</form>
 
-		<Banner :seller="Banner_data"></Banner>
+		<!-- <Banner :seller="Banner_data"></Banner> -->
 
 		<div class="produst-group">
 		
@@ -33,9 +33,6 @@
 </template>
 
 <script>
-
-require('./index.css');
-
 import axios from 'axios'
 import Banner from '@/components/Common/Banner/Banner'
 import ProdustItem from '@/components/Common/ProdustItem/ProdustItem'
@@ -60,6 +57,13 @@ export default{
 		this.ListenScroll();
 	},
 	methods:{
+		ToProdustList(){
+			//跳转产品列表
+			this.$router.push({
+				path : '/ProdustList',
+				query: {keyword: this.SearchKeyWord}
+			});
+		},
 		GetBanner(callback){
 			//获取Banner图片数据
 			let _self =this;
@@ -115,14 +119,6 @@ export default{
 					}
 				}
 			})
-		},
-		ToProdustList(str){
-			//跳转产品列表
-			let _self = this;
-			this.$router.push({
-				path : './ProdustList',
-				query: {keyword: _self.SearchKeyWord}
-			})
 		}
 	},
 	components:{
@@ -131,3 +127,5 @@ export default{
 	}
 }
 </script>
+
+<style type="text/css" src="./index.css"></style>

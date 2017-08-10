@@ -32,6 +32,16 @@
 		</div>
 		<!-- 商品信息 结束 -->
 
+		<!-- 商品规格 开始 -->
+		<div class="produst-spec">
+			
+			<div class="spec-list">
+				<span class="spec-item" v-for="(item,index) in Produst.spec" :class="item.isSpec==1?'active':''" @click="specFun(index)">{{item.text}}</span>
+			</div>
+
+		</div>
+		<!-- 商品规格 结束 -->
+
 		
 		<!-- 商品详情选项卡Tab 开始 -->
 		<div class="detail-tab">
@@ -72,8 +82,6 @@
 
 <script type="text/javascript">
 
-require('./ProdustDetail.css');
-
 import Banner from '@/components/Common/Banner/Banner'
 import axios from 'axios'
 
@@ -103,6 +111,11 @@ export default{
 				}
 			}).then((res)=>{
 				if(res.data.status == 0){
+					for(let item of res.data.data.spec){
+						let temp = item;
+						temp.isSpec = 0;
+						item = temp;
+					}
 					_self.Produst = res.data.data;
 					_self.Produst_banner_list.data = res.data.data.src;
 				}
@@ -122,6 +135,16 @@ export default{
 					console.log('添加成功');
 				}
 			});
+		},
+		specFun(index){
+			console.log('click')
+			for(let key in this.Produst.spec){
+				let temp = 0;
+				if(key == index){
+					temp = (this.Produst.spec[key].isSpec == 1 ? 0 : 1);
+				}
+				this.Produst.spec[key].isSpec = temp;
+			}
 		}
 	},
 	components:{
@@ -130,3 +153,5 @@ export default{
 }
 
 </script>
+
+<style type="text/css" src="./ProdustDetail.css"></style>

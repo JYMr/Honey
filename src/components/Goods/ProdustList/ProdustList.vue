@@ -26,10 +26,8 @@
 
 <script type="text/javascript">
 
-require('./ProdustList.css');
-
 import axios from 'axios'
-import ProdustItem from '@/components/Goods/ProdustItem'
+import ProdustItem from '@/components/Common/ProdustItem/ProdustItem'
 	
 export default{
 	data(){
@@ -116,3 +114,5 @@ export default{
 }
 
 </script>
+
+<style type="text/css" src="./ProdustList.css"></style>

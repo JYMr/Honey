@@ -16,8 +16,6 @@
 
 <script type="text/javascript">
 
-require('./ProdustItem.css');
-
     export default {
     	props:{
     		seller: Object
@@ -31,10 +29,12 @@ require('./ProdustItem.css');
 			LinkToProdustDetail(Id){
 				//跳转产品详情页面
 				this.$router.push({
-					path : 'Goods/ProdustDetail',
+					path : '/ProdustDetail',
 					query: {id: Id}
 				});
 			}
         }
     }
 </script>
+
+<style type="text/css" src="./ProdustItem.css"></style>

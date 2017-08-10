@@ -12,13 +12,13 @@
                 <span class="num">x{{seller.total}}</span>
             </div>
             <div class="cart-action">
-                <div class="cart-input">
+                <div class="cart-del" v-on:click="DelItem">
+                    <img :src="DelImg" alt="">
+                </div>
+                <div class="cart-input clearfix">
                     <button type="button" v-on:click="Redu">-</button>
                     <input type="text" v-model="total">
                     <button type="button" v-on:click="Add">+</button>
-                </div>
-                <div class="cart-del" v-on:click="DelItem">
-                    <img :src="DelImg" alt="">
                 </div>
             </div>
         </div>
@@ -26,8 +26,6 @@
 </template>
 
 <script type="text/javascript">
-	
-require('./CartItem.css');
 
 import axios from 'axios'
 
@@ -103,8 +101,14 @@ import axios from 'axios'
                         this.PropsNew();
                     }
                 })
+            },
+            seller(val,oldval){
+                console.log('!!!');
+                this.checkboxStatus = (val.ischoose == 0 ? false : true) || false;
             }
         }
 	}
 
 </script>
+
+<style type="text/css" src="./CartItem.css"></style>
