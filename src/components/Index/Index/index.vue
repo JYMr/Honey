@@ -16,7 +16,7 @@
 
 	            <span>新品推荐</span>
 
-	            <span class="more fr" v-on:click='ToProdustList'>更多</span>
+	            <span class="more fr">更多</span>
 
 			</div>
 
@@ -28,7 +28,6 @@
 			</div>
 
 		</div>
-
 	</div>
 </template>
 
@@ -52,17 +51,18 @@ export default{
 		}
 	},
 	mounted:function(){
-		this.GetBanner();
+		//this.GetBanner();
 		this.GetHotProdust();
 		this.ListenScroll();
 	},
 	methods:{
-		ToProdustList(){
+		ToProdustList(even){
 			//跳转产品列表
 			this.$router.push({
 				path : '/ProdustList',
 				query: {keyword: this.SearchKeyWord}
 			});
+
 		},
 		GetBanner(callback){
 			//获取Banner图片数据
@@ -82,7 +82,7 @@ export default{
 			//更改为加载中状态
 			_self.Loadstatus = 1;
 			axios.request({
-				url: 'http://localhost/json.php',
+				url: this.$url + 'json.php',
 				methods: 'get',
 				params:{
 					no : _self.No,
@@ -119,6 +119,9 @@ export default{
 					}
 				}
 			})
+		},
+		FuckYOU(){
+			alert()
 		}
 	},
 	components:{

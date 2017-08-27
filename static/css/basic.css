@@ -38,7 +38,6 @@ table{border-spacing: 0;border-collapse: collapse;}
 /** 统一表单边框 **/
 input,button,textarea{border: none;background-color: #fff;-webkit-appearance:none;border-radius: 0;}
 input:focus,button:focus,textarea:focus,select:focus{outline:none;}
-input:disabled{background-color: #FFF;}
 
 /* textarea */
 textarea{resize: none;}
@@ -47,6 +46,9 @@ textarea{resize: none;}
 a{tap-highlight-color: rgba(0,0,0,0);-webkit-tap-highlight-color: rgba(0,0,0,0);}
 
 body,html,#app{color: #333;height: 100%;}
+
+/*遮罩*/
+.mask{position: fixed;top: 0;bottom: 0;left: 0;right: 0;margin:auto;background-color: rgba(0,0,0,.6);z-index: 99;}
 
 /*容器浮动*/
 .fl,.float-l{float:left;}
@@ -70,3 +72,9 @@ header .header-tab .active{border-bottom: 0.0625rem solid #fff;}
 .checkgroup label,.radiogroup label{position: absolute;z-index: 1;top: 0;bottom: 0;left: 0;display: block;width: .344rem;height: .344rem;margin: auto 0;text-align: center;color: #fff;border: .031rem solid #eeb40c;border-radius: 50%;background: transparent;}
 .checkgroup input[type=checkbox],.radiogroup input[type=radio]{visibility: hidden;}
 .checkgroup input[type=checkbox]:checked + label,.radiogroup input[type=radio]:checked + label{background: url(../images/radio_bg.png) center center no-repeat;background-size: .234rem .234rem;}
+
+/*按钮样式*/
+.btn-content{margin:0 0.546875rem;}
+
+.btn{font-size: .469rem;font-size: .46875rem;line-height: 1.25rem;display: block;box-sizing: border-box;width: 100%;height: 1.25rem;text-align: center;color: #fff;border: none;border-radius: .125rem;background-color: #eeb40c;}
+.btn:disabled{background-color: #c7c7c7;}
