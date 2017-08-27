@@ -17,6 +17,8 @@ import Register from '@/components/Login/Register/Register'
 import ForgetPassword from '@/components/Login/ForgetPassword/ForgetPassword'
 import ForgetPasswordInput from '@/components/Login/ForgetPasswordInput/ForgetPasswordInput'
 
+import Personal from '@/components/Personal/Personal/Personal'
+
 Vue.use(Router)
 /*重定向*/
 const routes = [
@@ -123,9 +125,19 @@ const LoginPath = [
 	}
 ]
 
+/*个人中心相关*/
+const PersonalPath = [
+	{
+		path: '/Personal',
+		components:{
+			content: Personal
+		}
+	}
+]
+
 const router = new Router({
 	mode: 'history',
-	routes: routes.concat(NavBottom,GoodsPath,AddressPath,LoginPath),
+	routes: routes.concat(NavBottom,GoodsPath,AddressPath,LoginPath,PersonalPath),
 	linkActiveClass: 'active',
 })
 
