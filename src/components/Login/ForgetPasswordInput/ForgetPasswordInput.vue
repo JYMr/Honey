@@ -1,6 +1,6 @@
 <template>
 	<div class="ForgetPasswordInput">
-		<form>
+		<form v-on:submit.prevent="SubmitFun">
 	    <div class="input-group-type-2">
 			<label>新密码</label>
 	        <div class="full-input">
@@ -15,7 +15,7 @@
 	    </div>
 
 	    <div class="btn-content">
-	    	<input type="submit" class="btn" name="">
+	    	<input type="submit" class="btn" name="" :disabled="disable" :value="Btnval">
 	    </div>
 		</form>
 	</div>
@@ -26,7 +26,9 @@
 		data(){
 			return {
 				Password1: '',
-				Password2: ''
+				Password2: '',
+				Btnval:'提交',
+				disable:false
 			}
 		},
 		methods:{
@@ -35,6 +37,13 @@
 					this.$Toast.show({
 						type : 1,
 						title : '请输入密码',
+						time:1500
+					})
+					return false;
+				}else if(this.Password1.length < 6 || this.Password2.length < 6){
+					this.$Toast.show({
+						type : 1,
+						title : '密码不小于6位',
 						time:1500
 					})
 					return false;
@@ -50,7 +59,8 @@
 			},
 			SubmitFun(){
 				if(this.ValiData()){
-					
+					this.disable = true;
+					this.Btnval = '提交中...'
 				}
 			}
 		}
