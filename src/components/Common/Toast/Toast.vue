@@ -3,7 +3,7 @@
 
 	
 		<transition :name="MaskAnimate">
-			<div class="mask" v-if="isMask"></div>
+			<div class="mask" v-if="isMask" @click="MaskClick"></div>
 		</transition>
 			
 		<transition :name="ToastAnimate" v-on:after-leave="afterLeave">
@@ -171,6 +171,9 @@ export default{
 				this.imgHtml = img_path
 			}
 			
+		},
+		MaskClick(){
+			this.visible = false;
 		},
 		destroyEl(){
 			// Destroy El

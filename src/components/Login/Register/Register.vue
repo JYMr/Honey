@@ -15,7 +15,7 @@
 			<div class="login-input login-input-codebtn">
 				<input type="text" placeholder="请输入验证码" v-model="MoblieCode">
 				<img src="../asset/input_code_bg.png" alt="">
-				<a href="javascript:;" class="code-btn" @click="getMoblieCode">{{MoblieCodeStr}}</a>
+				<a href="javascript:;" class="code-btn" :class="{'send':isSend}" @click="getMoblieCode">{{MoblieCodeStr}}</a>
 			</div>
 			<div class="login-input login-input-righticon">
 				<input type="password" placeholder="请输入您的密码" v-if="passWordShow" v-model="password">
@@ -49,6 +49,9 @@
 				disable: false
 			}
 		},
+		beforeMount(){
+			this.TimeOut();
+		},
 		methods:{
 			pwdImg(){
 				this.passWordShow = !this.passWordShow;
@@ -77,8 +80,9 @@
 					})
 				//})
 
-
 				let time = 60;
+				let now_time = new Date().getTime();
+				localStorage.CodeTime = now_time;
 				setInterval(()=>{
 					if(time == 0){
 						this.isSend = false;
@@ -88,6 +92,28 @@
 						time--;
 					}
 				},1000)
+				
+			},
+			TimeOut(){
+				//判断上次验证码发送时间
+				let time = 60;
+				let now_time = new Date().getTime();
+				let temp_time = parseInt(localStorage.CodeTime);
+				//判断距离上次发送验证码时间是否超过60s
+				if(parseInt((now_time - temp_time)/1000) < 60){
+					this.isSend = true;
+					time = 60 - parseInt((now_time - temp_time)/1000);
+
+					setInterval(()=>{
+						if(time == 0){
+							this.isSend = false;
+							this.MoblieCodeStr = '获取验证码';
+						}else{
+							this.MoblieCodeStr = `${time}秒`;
+							time--;
+						}
+					},1000)
+				}
 			},
 			VailData(){
 				let str = '';

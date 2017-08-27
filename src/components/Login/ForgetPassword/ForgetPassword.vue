@@ -15,8 +15,7 @@
 	    </div>
 
 	    <div class="btn-content">
-	        <input type="submit" class="btn" :value="CodeVal" @click="SendCode">
-	       <!--  <input type="submit" class="btn b-duly" value="重新获取验证码 (55秒)"> -->
+	        <input type="submit" class="btn" :value="CodeVal" @click="SendCode" :disabled="disable">
 	    </div>
 
 	    <span class="reSendCode" v-if="SendCodeText" @click="SendCode">{{SendCodeText}}</span>
@@ -32,8 +31,12 @@
 				Code:'',
 				CodeVal: '获取验证码',
 				SendCodeText: '',
-				isSend:false
+				isSend:false,
+				disable: false
 			}
+		},
+		beforeMount(){
+			this.TimeOut();
 		},
 		methods:{
 			ValiData(type){
@@ -70,9 +73,11 @@
 						title: '已发送验证码，请注意查收',
 						time: 1500
 					})
-					let i = 10;
+					let i = 60;
 					this.isFirst = false;
 					this.CodeVal = '下一步'
+					let now_time = new Date().getTime();
+					localStorage.ForgetCodeTime = now_time;
 					let TimeCode = setInterval(()=>{
 						i--;
 						if(i==0){
@@ -88,6 +93,29 @@
 					//跳转
 					//axios验证验证码
 					alert('!!')
+				}
+			},
+			TimeOut(){
+				//判断上次验证码发送时间
+				let time = 60;
+				let now_time = new Date().getTime();
+				let temp_time = parseInt(localStorage.ForgetCodeTime);
+				//判断距离上次发送验证码时间是否超过60s
+				if(parseInt((now_time - temp_time)/1000) < 60){
+					this.isSend = true;
+					this.disable = true;
+					time = 60 - parseInt((now_time - temp_time)/1000);
+
+					setInterval(()=>{
+						if(time == 0){
+							this.isSend = false;
+							this.disable = false;
+							this.CodeVal = '获取验证码'
+						}else{
+							this.CodeVal = `重新获取验证码 (${time}秒)`;
+							time--;
+						}
+					},1000)
 				}
 			}
 		}

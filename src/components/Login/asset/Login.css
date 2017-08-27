@@ -15,5 +15,6 @@
 	.login-input.login-input-righticon img:nth-child(3),.login-input.login-input-righticon img.password-show-btn{right: 0.25rem;left: auto;}
 	.login-input.login-input-codebtn input{padding-right: 2.5rem;}
 	.login-input.login-input-codebtn .code-btn{position: absolute;right: 0;top: 0;line-height: 0.625rem;height: 0.625rem;bottom: 0;margin:auto 0;color: #c10000;padding-left: 0.5rem;border-left: 0.031rem solid #c10000;box-sizing: border-box;width: 2.5rem;font-size: 0.375rem;}
+	.login-input.login-input-codebtn .code-btn.send{color:#666;border-color: #666;}
 	.login-link{margin: 0.344rem 0 0.688rem 0;}
 	.login-link a{font-size: 0.312rem;color: #666;font-size: 0.438rem;}
