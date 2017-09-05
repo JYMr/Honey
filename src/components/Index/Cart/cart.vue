@@ -46,12 +46,13 @@ export default{
 		GetCartData(){
 			//获取购物车数据
 			axios.request({
-				url: 'http://localhost/cart.php',
+				url: this.$url + 'ApiImplements.htm',
 				mothods: 'get',
 				params:{
 					pagesize: 8,
 					no: 1,
-					method: 'get'
+					method: 'getCartList',
+					userid:'orwX1sr2tZmfLiA9B2W5EP0hippE'
 				}
 			}).then((res)=>{
 				if(res.data.status == 0){

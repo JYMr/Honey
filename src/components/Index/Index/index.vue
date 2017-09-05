@@ -82,25 +82,26 @@ export default{
 			//更改为加载中状态
 			_self.Loadstatus = 1;
 			axios.request({
-				url: this.$url + 'json.php',
+				url: this.$url + 'ApiImplements.htm',
 				methods: 'get',
 				params:{
+					method:'getProdustList',
 					no : _self.No,
 					pagesize : _self.PageSize
 				}
 			}).then((res)=>{
 				if(res.data.status == 0){
-					if(res.data.goods.length == 0){
+					if(res.data.data.length == 0){
 						_self.Loadstatus = 2;
 						_self.isNeedLoad = false;
 						_callback;
 						return;
-					}else if(res.data.goods.length < _self.PageSize){
+					}else if(res.data.data.length < _self.PageSize){
 						_self.Loadstatus = 2;
 					}else{
 						_self.Loadstatus = 0;
 					}
-					this.ProdustList = this.ProdustList.concat(res.data.goods);
+					this.ProdustList = this.ProdustList.concat(res.data.data);
 					_callback;
 				}
 			});
