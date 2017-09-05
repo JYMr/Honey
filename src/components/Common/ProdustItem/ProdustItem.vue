@@ -4,7 +4,7 @@
 			<img :src="seller.imagesSrc || Default_img_src">
 
 			<div class="produst-item-text">
-				<div class="produst-item-name">{{seller.title}}</div>
+				<div class="produst-item-name">{{seller.itemname}}</div>
 				<div class="produst-item-price">
 					<span class="price-1">￥{{seller.marketprice}}</span>
 					<span class="price-2" v-if="seller.productprice">￥{{seller.productprice}}</span>
