@@ -67,12 +67,12 @@ import axios from 'axios'
             checkboxStatus(){//监听是否选择该商品
                 var _self = this;
                 axios.request({
-                    url:'http://localhost/cart.php',
+                    url: this.$url + 'ApiImplements.htm',
                     methods: 'get',
                     params:{
-                        method: 'update',
-                        id: _self.seller.id,
-                        total : _self.total,
+                        method: 'setChoose',
+                        userid: 'orwX1sr2tZmfLiA9B2W5EP0hippE',
+                        cid: _self.seller.id,
                         ischoose : _self.checkboxStatus == false ? '0' : '1'
                     }
                 }).then((res)=>{
@@ -88,11 +88,12 @@ import axios from 'axios'
             total(){//监听该商品选择数量
                 var _self = this;
                 axios.request({
-                    url:'http://localhost/cart.php',
+                    url: this.$url + 'ApiImplements.htm',
                     methods: 'get',
                     params:{
-                        method: 'update',
-                        id: _self.seller.id,
+                        method: 'setTotal',
+                        userid: 'orwX1sr2tZmfLiA9B2W5EP0hippE',
+                        cid: _self.seller.id,
                         total : _self.total
                     }
                 }).then((res)=>{

@@ -135,6 +135,9 @@ const PersonalPath = [
 	}
 ]
 
+/*订单相关*/
+
+
 const router = new Router({
 	mode: 'history',
 	routes: routes.concat(NavBottom,GoodsPath,AddressPath,LoginPath,PersonalPath),

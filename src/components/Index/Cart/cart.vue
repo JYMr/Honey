@@ -40,6 +40,10 @@ export default{
 		}
 	},
 	mounted(){
+		this.$Toast.show({
+			type: 5,
+			time: 0
+		})
 		this.GetCartData();
 	},
 	methods:{
@@ -54,30 +58,38 @@ export default{
 				}
 			}).then((res)=>{
 				if(res.data.status == 0){
-					this.Cart_list = this.Cart_list.concat(res.data.cart);
+					this.$Toast.close();
+					this.Cart_list = this.Cart_list.concat(res.data.detail);
 				}
 			})
 		},
 		DelItemFunc(index){
-			if(confirm('是否删除该商品')){
+			this.$Toast.show({
+				title: '是否删除该商品',
+				type : 3,
+				time: 0,
+				callback: (index)=>{
+					if(index == 1){
+						axios.request({
+							url: this.$url + 'ApiImplements.htm',
+							methods: 'get',
+							params:{
+								method: 'DelCart',
+								userid: 'orwX1sr2tZmfLiA9B2W5EP0hippE',
+								cid: this.Cart_list[index].id
+							}
+						}).then((res)=>{
+							if(res.data.status == 0){
+								console.log(res.data.msg);
 
-				axios.request({
-					url: 'http://localhost/cart.php',
-					methods: 'get',
-					params: {
-						method : 'del',
-						id : this.Cart_list[index].id
+								let tempObject = this.Cart_list;
+								tempObject.splice(index,1);
+								this.Cart_list = tempObject;
+							}
+						})
 					}
-				}).then((res)=>{
-					if(res.data.status == 0){
-						console.log(res.data.msg);
-
-						let tempObject = this.Cart_list;
-						tempObject.splice(index,1);
-						this.Cart_list = tempObject;
-					}
-				})
-			}
+				}
+			});
 		}
 	},watch:{
 		Cart_list:{

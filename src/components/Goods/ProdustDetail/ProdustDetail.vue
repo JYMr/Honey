@@ -119,17 +119,20 @@ export default{
 					}*/
 					_self.Produst = res.data.detail;
 					_self.Produst_banner_list.data[0] = res.data.detail.src;
+					console.log(_self.Produst_banner_list.data)
 				}
 			})
 		},
 		AddCart(){
 			//加入购物车
 			axios.request({
-				url: 'http://localhost/cart.php',
+				url: this.$url + 'ApiImplements.htm',
 				methods: 'get',
 				params:{
-					method : 'insert',
-					id: this.id
+					method : 'AddCart',
+					gid: this.id,
+					total: 1,
+                    userid: 'orwX1sr2tZmfLiA9B2W5EP0hippE',
 				}
 			}).then((res)=>{
 				if(res.data.status == 0){
