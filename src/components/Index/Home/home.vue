@@ -54,11 +54,11 @@
 	            </span>
 	        </div>
 	        <div class="home-order-list clearfix">
-	            <div class="home-order-list-item" v-for="item of home_order_list">
+	            <router-link tag="div" class="home-order-list-item" v-for="(item,index) of home_order_list" :to="{ path: 'Order', query: { status: index }}" :key="'Order_'+index">
 	                <img :src="item.src" :alt="item.title">
 	                <span>{{item.title}}</span>
 	                <i v-if="item.number">{{item.number}}</i>
-	            </div>
+	            </router-link>
 	        </div>
 	    </div>
 	    <!-- 个人中心 订单栏 结束 --> 

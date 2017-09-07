@@ -19,6 +19,8 @@ import ForgetPasswordInput from '@/components/Login/ForgetPasswordInput/ForgetPa
 
 import Personal from '@/components/Personal/Personal/Personal'
 
+import Order from '@/components/Order/Order'
+
 Vue.use(Router)
 /*重定向*/
 const routes = [
@@ -136,11 +138,18 @@ const PersonalPath = [
 ]
 
 /*订单相关*/
-
+const OrderPath = [
+	{
+		path: '/Order',
+		components:{
+			content: Order
+		}	
+	}
+]
 
 const router = new Router({
 	mode: 'history',
-	routes: routes.concat(NavBottom,GoodsPath,AddressPath,LoginPath,PersonalPath),
+	routes: routes.concat(NavBottom,GoodsPath,AddressPath,LoginPath,PersonalPath,OrderPath),
 	linkActiveClass: 'active',
 })
 

@@ -1,18 +1,12 @@
 <template>
 	<div class="order">
-	    <header>
-	        <div class="header-left">
-	            <img src="images/left_arrow.png" alt="">
-	        </div>
-	        全部订单
-	    </header>
 
 	    <div class="order-tab">
 	        <div class="order-tab-item active">全部</div>
-	        <div class="order-tab-item">全部</div>
-	        <div class="order-tab-item">全部</div>
-	        <div class="order-tab-item">全部</div>
-	        <div class="order-tab-item">全部</div>
+	        <div class="order-tab-item">待付款</div>
+	        <div class="order-tab-item">待发货</div>
+	        <div class="order-tab-item">待收货</div>
+	        <div class="order-tab-item">待评价</div>
 	    </div>
 
 	    <div class="order-content">
