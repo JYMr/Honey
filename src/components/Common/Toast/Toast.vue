@@ -17,21 +17,21 @@
 				<div class="alert model" v-if="type == 2">
 					<div class="model-title">{{title}}</div>
 					<div class="model-btn">
-						<div class="btn submit" @click="CloseToast">{{BindBtn}}</div>
+						<div class="Tapbtn submit" @click="CloseToast">{{BindBtn}}</div>
 					</div>
 				</div>
 
 				<div class="confirm model" v-if="type == 3">
 					<div class="model-title">{{title}}</div>
 					<div class="model-btn">
-						<div class="btn" :class="item.class" v-for="(item,index) in BindBtn" @click="CloseToast(index)">{{item.title}}</div>
+						<div class="Tapbtn" :class="item.class" v-for="(item,index) in BindBtn" @click="CloseToast(index)">{{item.title}}</div>
 					</div>
 				</div>
 
 				<div class="select model-select" v-if="type == 4">
 					<div class="model-title">{{title}}</div>
 					<div class="model-btn">
-						<div class="btn" :class="item.class" v-for="(item,index) in BindBtn" @click="CloseToast(index)">{{item.title}}</div>
+						<div class="Tapbtn" :class="item.class" v-for="(item,index) in BindBtn" @click="CloseToast(index)">{{item.title}}</div>
 					</div>
 				</div>
 
@@ -122,11 +122,13 @@ export default{
 			let DefaultBtn = [{title:'取消',class:'cancel'},{title:'确定',class: 'submit'}]
 			let handlearray = this.ButtonArray; 
 
-			//String
-			if(typeof handlearray == 'string'){
-				if(handlearray == ''){
+			//处理数组
+			if(handlearray instanceof Array){
+
+				if(handlearray.length == 0){
 					if(type == 2){
-						this.BindBtn = '确定'
+						this.BindBtn = '确定';
+						return;
 					}else if(type == 3){
 						this.BindBtn = DefaultBtn;
 					}else{
@@ -135,29 +137,23 @@ export default{
 					}
 				}
 
+				for(let item of handlearray){
+					let Temp = new Object();
+					if(typeof item == 'object'){
+						Temp.title = item.title || '';
+						Temp.class = item.class || '';
+					}else{
+						Temp.title = item || '';
+						Temp.class = '';
+					}
+					this.BindBtn.push(Temp);
+				}
+			}else if(handlearray instanceof String){
 				//处理空格连接的字符串
 				handlearray = handlearray.split(' ');
 				if(handlearray.length == 1){
 					this.BindBtn = handlearray[0]
 				}
-			}
-
-			//Array
-
-			if(handlearray.length == 0  && type == 2) {
-				this.BindBtn =  '确定';
-				return;
-			}
-			for(let item of handlearray){
-				let Temp = new Object();
-				if(typeof item == 'object'){
-					Temp.title = item.title || '';
-					Temp.class = item.class || '';
-				}else{
-					Temp.title = item || '';
-					Temp.class = '';
-				}
-				this.BindBtn.push(Temp);
 			}
 		},
 		HandleImg(){
