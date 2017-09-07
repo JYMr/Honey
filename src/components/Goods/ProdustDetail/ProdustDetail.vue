@@ -9,7 +9,7 @@
 		<div class="detail-produst">
 			
 			<div class="detail-produst-name">
-				{{Produst.itemname}}
+				{{Produst.title}}
 			</div>
 
 			<div class="detail-produst-text">
@@ -33,13 +33,13 @@
 		<!-- 商品信息 结束 -->
 
 		<!-- 商品规格 开始 -->
-		<div class="produst-spec">
+		<!-- <div class="produst-spec">
 			
 			<div class="spec-list">
 				<span class="spec-item" v-for="(item,index) in Produst.spec" :class="item.isSpec==1?'active':''" @click="specFun(index)">{{item.text}}</span>
 			</div>
-
-		</div>
+		
+		</div> -->
 		<!-- 商品规格 结束 -->
 
 		
@@ -104,20 +104,21 @@ export default{
 			//获取商品详细信息
 			var _self = this;
 			axios.request({
-				url: 'http://localhost/detail.php',
+				url: this.$url + 'ApiImplements.htm',
 				methods: 'get',
 				params:{
-					id : _self.id
+					id : _self.id,
+					method: 'getDetail'
 				}
 			}).then((res)=>{
 				if(res.data.status == 0){
-					for(let item of res.data.data.spec){
+					/*for(let item of res.data.data.spec){
 						let temp = item;
 						temp.isSpec = 0;
 						item = temp;
-					}
-					_self.Produst = res.data.data;
-					_self.Produst_banner_list.data = res.data.data.src;
+					}*/
+					_self.Produst = res.data.detail;
+					_self.Produst_banner_list.data[0] = res.data.detail.src;
 				}
 			})
 		},

@@ -5,7 +5,7 @@
 .produst-group .produst-group-title span{font-size: .438rem;margin-left: .156rem;display: inline-block;vertical-align: top;}
 .produst-group .produst-group-title .more{font-size: .375rem;}
 .produst-list{padding: 0 .156rem .312rem;}
-.produst-list .more{font-size: .375rem;text-align: center;display: block;}
+.produst-list .more{font-size: .375rem;text-align: center;display: block;clear: both;line-height: 1.21875rem;}
 	.produst-list:after{position: relative;display: block;visibility: hidden;clear: both;content: '';}
 
 /*头部*/

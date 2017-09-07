@@ -34,7 +34,7 @@ export default{
 		return {
 			Pagesize : 8,
 			No : 1,
-			SearchKeyWord : this.$route.query.keyword || '',
+			SearchKeyWord : '',
 			ProdustListData: [],
 			Loadstatus : 0,//上拉加载状态 0:未加载 1:加载中 2:所有加载完成
 			isNeedLoad : true,
@@ -42,6 +42,7 @@ export default{
 		}
 	},
 	created(){
+		this.SearchKeyWord = this.$route.query.keyword || '';
 		this.GetProdustListData();
 		this.ListenScroll();
 	},
@@ -58,26 +59,30 @@ export default{
 
 			let _self = this;
 			axios.request({
-				url: 'http://localhost/produstlist.php',
+				url: this.$url + 'ApiImplements.htm',
 				type: 'get',
 				params:{
-					pagesize : _self.Pagesize,
-					No : _self.No,
-					keyword : _self.SearchKeyWord
+					page : _self.Pagesize,
+					no : _self.No,
+					keyword : _self.SearchKeyWord,
+					method: 'Search'
 				}
 			}).then((res)=>{
 				if(res.data.status == 0){
-					if(res.data.goods.length == 0){
+					if(res.data.data.length == 0){
 						_self.Loadstatus = 2;
 						_self.isNeedLoad = false;
 						_callback;
 						return;
-					}else if(res.data.goods.length < _self.PageSize){
+					}else if(res.data.data.length < _self.Pagesize){
 						_self.Loadstatus = 2;
 					}else{
 						_self.Loadstatus = 0;
 					}
-					_self.ProdustListData = _self.ProdustListData.concat(res.data.goods);
+					for(let item of res.data.data){
+						console.log(item.id)
+					}
+					_self.ProdustListData = _self.ProdustListData.concat(res.data.data);
 					_callback;
 				}
 			});
