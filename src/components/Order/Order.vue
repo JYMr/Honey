@@ -14,20 +14,20 @@
 	        <div class="order-content-item active" id="scroll_list">
 	            <div class="order-list">
 	                <ul>
-	                    <li>
+	                    <li v-for="item of OrderList">
 	                        <div class="order-title">
 	                            <img src="images/order_title_icon.png">
-	                            Darry Ring
+	                            {{item.orderSn}}
 	                            <span class="order-action">待收货</span>
 	                        </div>
 	                        <ul>
 	                            <!-- 订单商品 开始 -->
-	                            <li>
-	                                <div class="produst-img"><img src="images/goods.png" alt=""></div>
+	                            <li v-for="produstitem of item.goodsList">
+	                                <div class="produst-img"><img :src="produstitem.src" alt=""></div>
 	                                <div class="produst-data">
-	                                    <h4>18K铂金钻石镶嵌情侣对戒</h4>
+	                                    <h4>{{produstitem.title}}</h4>
 	                                    <div class="produst-data-info">
-	                                        <span class="price">￥33098.00</span>
+	                                        <span class="price">￥{{produstitem.marketprice}}</span>
 	                                        <span class="num">x1</span>
 	                                    </div>
 	                                </div>
@@ -35,7 +35,7 @@
 	                            <!-- 订单商品 结束 -->
 	                        </ul>
 	                        <div class="order-total">
-	                            共1件商品，合计￥39882.00(含运费￥0.00)
+	                            共1件商品，合计￥{{item.price}}(含运费￥0.00)
 	                        </div>
 	                        <div class="order-btn">
 	                            <a href="javascript:;" class="fr btn btn-sm-outline">确认收货</a>
@@ -57,9 +57,37 @@
 </template>
 
 <script type="text/javascript">
+
+import axios from 'axios'
 	
 export default{
-
+	data(){
+		return {
+			OrderList: [],
+			no: 1
+		}
+	},
+	mounted(){
+		this.GetOrderList();
+	},
+	methods:{
+		GetOrderList(){
+			axios.request({
+				url: this.$url + 'ApiImplements.htm',
+				methods: 'get',
+				params:{
+					userid: 'orwX1sjqDWIOXtusI4Tab23-eyIk',
+					method: 'getOrderList',
+					page: 8,
+					no: this.no
+				}
+			}).then((res)=>{
+				if(res.data.status == 0){
+					this.OrderList = res.data.OrderList
+				}
+			})
+		}
+	}
 }
 
 </script>
