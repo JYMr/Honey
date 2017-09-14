@@ -2,56 +2,13 @@
 	<div class="order">
 
 	    <div class="order-tab">
-	        <div class="order-tab-item active">全部</div>
-	        <div class="order-tab-item">待付款</div>
-	        <div class="order-tab-item">待发货</div>
-	        <div class="order-tab-item">待收货</div>
-	        <div class="order-tab-item">待评价</div>
+	    	<router-link v-for="(item,index) of OrderStatus" :to="{path:'./Status',query: {'status':item.status}}" tag="div" class="order-tab-item" active-class="active">{{item.title}}</router-link>
 	    </div>
 
 	    <div class="order-content">
-	        <!-- 全部订单 开始 -->
-	        <div class="order-content-item active" id="scroll_list">
-	            <div class="order-list">
-	                <ul>
-	                    <li v-for="item of OrderList">
-	                        <div class="order-title">
-	                            <img src="images/order_title_icon.png">
-	                            {{item.orderSn}}
-	                            <span class="order-action">待收货</span>
-	                        </div>
-	                        <ul>
-	                            <!-- 订单商品 开始 -->
-	                            <li v-for="produstitem of item.goodsList">
-	                                <div class="produst-img"><img :src="produstitem.src" alt=""></div>
-	                                <div class="produst-data">
-	                                    <h4>{{produstitem.title}}</h4>
-	                                    <div class="produst-data-info">
-	                                        <span class="price">￥{{produstitem.marketprice}}</span>
-	                                        <span class="num">x1</span>
-	                                    </div>
-	                                </div>
-	                            </li>
-	                            <!-- 订单商品 结束 -->
-	                        </ul>
-	                        <div class="order-total">
-	                            共1件商品，合计￥{{item.price}}(含运费￥0.00)
-	                        </div>
-	                        <div class="order-btn">
-	                            <a href="javascript:;" class="fr btn btn-sm-outline">确认收货</a>
-	                        </div>
-	                    </li>
-	                </ul>
-	                <div class="order-list-more">
-	                    上拉加载更多数据
-	                </div>
-	            </div>
-	        </div>
-	        <!-- 全部订单 结束 -->
-	        <div class="order-content-item"></div>
-	        <div class="order-content-item"></div>
-	        <div class="order-content-item"></div>
-	        <div class="order-content-item"></div>
+		    <keep-alive>
+	    		<router-view name="order"></router-view>
+	    	</keep-alive>
 	    </div>
 	</div>
 </template>
@@ -63,30 +20,72 @@ import axios from 'axios'
 export default{
 	data(){
 		return {
+			OrderStatus:[{title: '全部',status: ''},{title: '待付款',status: '0'},{title: '待发货',status: '1'},{title: '待收货',status: '2'},{title: '待评价',status: '3'}],
 			OrderList: [],
-			no: 1
+			isNeedLoad : true,//上拉加载阀值,防止多次请求
+			Loadstatus : 0,//上拉加载状态 0:未加载 1:加载中 2:所有加载完成
+			No : 1,
+			PageSize: 8
 		}
 	},
 	mounted(){
+		let status = this.$route.query.status;
+		if(status == undefined){
+			console.log(this.$route);
+			this.$router.push('/Order/Status')
+		}
 		this.GetOrderList();
+		this.ListenScroll();
 	},
 	methods:{
-		GetOrderList(){
+		GetOrderList(callback){
+			let _callback;
+			if(callback && typeof callback == 'function') 
+				_callback=callback();
+
+			this.Loadstatus = 1;
+
 			axios.request({
 				url: this.$url + 'ApiImplements.htm',
 				methods: 'get',
 				params:{
 					userid: 'orwX1sjqDWIOXtusI4Tab23-eyIk',
 					method: 'getOrderList',
-					page: 8,
-					no: this.no
+					page: this.PageSize,
+					no: this.No
 				}
 			}).then((res)=>{
 				if(res.data.status == 0){
-					this.OrderList = res.data.OrderList
+					if(res.data.OrderList.length == 0){
+						this.Loadstatus = 2;
+						this.isNeedLoad = false;
+						_callback;
+						return;
+					}else if(res.data.OrderList.length < this.PageSize){
+						this.Loadstatus = 2;
+					}else{
+						this.Loadstatus = 0;
+					}
+					this.OrderList = this.OrderList.concat(res.data.OrderList);
+					_callback;
 				}
 			})
-		}
+		},
+		ListenScroll(){
+			//监听滚动：触底加载
+			let _self = this;
+			window.addEventListener('scroll',function(){
+				if(_self.isNeedLoad){
+					if(document.body.scrollHeight - window.innerHeight <= document.body.scrollTop){
+						_self.isNeedLoad = false;
+						_self.No += 1;
+						_self.GetOrderList(function(){
+							_self.isNeedLoad = true;
+						});
+					}
+				}
+			})
+		},
 	}
 }
 

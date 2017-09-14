@@ -20,6 +20,7 @@ import ForgetPasswordInput from '@/components/Login/ForgetPasswordInput/ForgetPa
 import Personal from '@/components/Personal/Personal/Personal'
 
 import Order from '@/components/Order/Order'
+import OrderContent from '@/components/Order/OrderContent'
 
 Vue.use(Router)
 /*重定向*/
@@ -143,7 +144,15 @@ const OrderPath = [
 		path: '/Order',
 		components:{
 			content: Order
-		}	
+		},
+		children:[
+			{
+				path: '/Order/Status',
+				components:{
+					order: OrderContent
+				}
+			}
+		]
 	}
 ]
 
