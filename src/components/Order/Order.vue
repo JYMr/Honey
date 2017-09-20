@@ -2,13 +2,71 @@
 	<div class="order">
 
 	    <div class="order-tab">
-	    	<router-link v-for="(item,index) of OrderStatus" :to="{path:'./Status',query: {'status':item.status}}" tag="div" class="order-tab-item" active-class="active">{{item.title}}</router-link>
+	    	<div class="order-tab-item" :class="{'active':status == item.status}" v-for="(item,index) of OrderStatus"  @click="LinkToStatus(index)">{{item.title}}</div>
 	    </div>
 
 	    <div class="order-content">
-		    <keep-alive>
-	    		<router-view name="order"></router-view>
-	    	</keep-alive>
+		     <!-- 全部订单 开始 -->
+	        <div class="order-content-item active" id="scroll_list">
+	            <div class="order-list">
+	                <ul>
+	                    <li v-for="item of OrderList">
+	                        <div class="order-title">
+	                            {{item.orderSn}}
+	                            <span class="order-action" v-if="item.status == -1">已取消</span>
+	                            <span class="order-action" v-if="item.status == 0">待付款</span>
+	                            <span class="order-action" v-if="item.status == 1">待发货</span>
+	                            <span class="order-action" v-if="item.status == 2">待收货</span>
+	                            <span class="order-action" v-if="item.status == 3">交易成功</span>
+	                            <span class="order-action" v-if="item.status == -6">已退款</span>
+	                            <span class="order-action" v-if="item.status == -2">退款中</span>
+	                        </div>
+	                        <ul>
+	                            <!-- 订单商品 开始 -->
+	                            <li v-for="produstitem of item.goodsList">
+	                                <div class="produst-img"><img :src="produstitem.src" alt=""></div>
+	                                <div class="produst-data">
+	                                    <h4>{{produstitem.title}}</h4>
+	                                    <div class="produst-data-info">
+	                                        <span class="price">￥{{produstitem.marketprice}}</span>
+	                                        <span class="num">x1</span>
+	                                    </div>
+	                                </div>
+	                            </li>
+	                            <!-- 订单商品 结束 -->
+	                        </ul>
+	                        <div class="order-total">
+	                            共1件商品，合计￥{{item.price}}(含运费￥0.00)
+	                        </div>
+	                        <div class="order-btn" v-if="item.status == 0">
+	                            <a href="javascript:;" class="fr btn btn-sm-outline">取消订单</a>
+	                            <a href="javascript:;" class="fr btn btn-sm">去付款</a>
+	                        </div>
+	                        <div class="order-btn" v-if="item.status == 1">
+	                            <a href="javascript:;" class="fr btn btn-sm-outline">取消订单</a>
+	                        </div>
+	                        <div class="order-btn" v-if="item.status == 2">
+	                            <a href="javascript:;" class="fr btn btn-sm-outline">确认收货</a>
+	                        </div>
+	                        <div class="order-btn" v-if="item.status == 3">
+	                            <a href="javascript:;" class="fr btn btn-sm-outline">申请售后</a>
+	                        </div>
+	                        <div class="order-btn" v-if="item.status == -2 || item.status == -6">
+	                            <a href="javascript:;" class="fr btn btn-sm-outline">查看售后</a>
+	                        </div>
+	                    </li>
+	                </ul>
+	                <div class="order-list-more" v-if='Loadstatus==0'>
+	                    上拉加载更多数据
+	                </div>
+	                <div class="order-list-more" v-if='Loadstatus==1'>
+	                    加载中...
+	                </div>
+	                <div class="order-list-more" v-if='Loadstatus==2'>
+	                    没有更多内容了
+	                </div>
+	            </div>
+	        </div>
 	    </div>
 	</div>
 </template>
@@ -21,6 +79,7 @@ export default{
 	data(){
 		return {
 			OrderStatus:[{title: '全部',status: ''},{title: '待付款',status: '0'},{title: '待发货',status: '1'},{title: '待收货',status: '2'},{title: '待评价',status: '3'}],
+			status: this.$route.query.status || '',
 			OrderList: [],
 			isNeedLoad : true,//上拉加载阀值,防止多次请求
 			Loadstatus : 0,//上拉加载状态 0:未加载 1:加载中 2:所有加载完成
@@ -29,11 +88,6 @@ export default{
 		}
 	},
 	mounted(){
-		let status = this.$route.query.status;
-		if(status == undefined){
-			console.log(this.$route);
-			this.$router.push('/Order/Status')
-		}
 		this.GetOrderList();
 		this.ListenScroll();
 	},
@@ -52,7 +106,8 @@ export default{
 					userid: 'orwX1sjqDWIOXtusI4Tab23-eyIk',
 					method: 'getOrderList',
 					page: this.PageSize,
-					no: this.No
+					no: this.No,
+					status: this.status
 				}
 			}).then((res)=>{
 				if(res.data.status == 0){
@@ -86,6 +141,21 @@ export default{
 				}
 			})
 		},
+		LinkToStatus(index){
+			this.$router.push({
+				path: '/order',
+				query: {
+					status : this.OrderStatus[index].status
+				}
+			})
+		}
+	},
+	watch:{
+		$route(newVal,oldVal){
+			this.status = newVal.query.status;
+			this.OrderList = [];
+			this.GetOrderList();
+		}
 	}
 }
 

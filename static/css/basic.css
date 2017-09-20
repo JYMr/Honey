@@ -77,7 +77,15 @@ header .header-tab .active{border-bottom: 0.0625rem solid #fff;}
 .btn-content{margin:0 0.546875rem;}
 
 .btn{font-size: .469rem;font-size: .46875rem;line-height: 1.25rem;display: block;box-sizing: border-box;width: 100%;height: 1.25rem;text-align: center;color: #fff;border: none;border-radius: .125rem;background-color: #eeb40c;}
-.btn-sm-outline{display: inline-block;width: auto;padding: 0 0.15625rem;}
+.btn-sm{width: auto;font-size: 14px;padding: 0 0.15625rem;}
+.btn-sm-outline{display: inline-block;width: auto;padding: 0 0.15625rem;background-color: #FFF;color: #eeb40c;font-size: 14px;border: 1px solid #eeb40c;}
 .btn:disabled{background-color: #c7c7c7;}
 
 .footerNav{padding-bottom: 50px;}
+
+/*自适应表单*/
+.input-item + .input-item{border-top: 0.03125rem solid #ccc;}
+.input-item label{font-size: 0.4375rem;line-height: 1.40625rem;display: block;float: left;width: 3.125rem;margin-right: -100%;}
+.input-content{font-size: 0.4375rem;line-height: 1.40625rem;margin-left: 3.125rem;}
+.input-content-1{line-height: 1.40625rem;height: 1.40625rem;}
+.input-content-1 input{line-height: 1.40625rem;width: 100%;height: 1.40625rem;box-sizing: border-box;border:none;display: block;}
