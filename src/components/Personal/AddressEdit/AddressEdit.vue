@@ -47,7 +47,7 @@
 	</div>
 
 	<!-- 地址选择器 -->
-	<div class="msk_bg" v-show="isShow" @click="ShowAddressSelector"></div>
+	<div class="mask" v-show="isShow" @click="ShowAddressSelector"></div>
 	<div class="content-con" v-show="isShow">
 		<div class="content-line"></div>
 		<div class="content-title">

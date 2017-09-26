@@ -65,10 +65,10 @@
 
 	    <!-- 个人中心 功能项 开始 -->
 	    <div class="home-item-content clearfix">
-	        <div class="home-item" v-for="item of home_item_list">
+	        <router-link tag="div" class="home-item" v-for="(item,index) of home_item_list" :to="{path: item.path}" :key="index">
 	            <img :src="item.src" />
 	            <span>{{item.title}}</span>
-	        </div>
+	        </router-link>
 	    </div>
 	    <!-- 个人中心 功能项 结束 -->
 	</div>

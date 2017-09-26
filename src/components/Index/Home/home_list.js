@@ -14,11 +14,13 @@ const home_list_data = {
 		},*/
 		{
 			"src":"./static/images/list4.png",
-			"title":"地址管理"
+			"title":"地址管理",
+			"path": "/Address"
 		},
 		{
 			"src":"./static/images/list5.png",
-			"title":"账号管理"
+			"title":"账号管理",
+			"path": "/Address"
 		}/*,
 		{
 			"src":"./static/images/list6.png",
@@ -30,7 +32,8 @@ const home_list_data = {
 		}*/,
 		{
 			"src":"./static/images/list8.png",
-			"title":"我的收藏"
+			"title":"我的收藏",
+			"path": "/Address"
 		}
 	],
 	order_list:[
