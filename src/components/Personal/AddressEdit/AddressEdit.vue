@@ -25,8 +25,8 @@
 		<div class="input-item">
 			<label class="fl">请选择省市区</label>
 			<div class="input-content">
-				<div class="input-content-1">
-					<input type="text" name="" :value="Address.province + ' ' + Address.city + ' ' + Address.area" placeholder="请选择省市区">
+				<div class="input-content-1" @click="ShowAddressSelector">
+					<input type="text" name="" v-model="City_text" placeholder="请选择省市区" disabled>
 				</div>
 			</div>
 		</div>
@@ -43,15 +43,15 @@
 	</div>
 
 	<div class="btn-content">
-		<button type="button" class="btn">保存</button>
+		<button type="button" class="btn" :disabled="visable">保存</button>
 	</div>
 
-
-	<div class="msk_bg" v-show="isShow"></div>
+	<!-- 地址选择器 -->
+	<div class="msk_bg" v-show="isShow" @click="ShowAddressSelector"></div>
 	<div class="content-con" v-show="isShow">
 		<div class="content-line"></div>
 		<div class="content-title">
-			<span class="fl button btn-cancel">取消</span>
+			<span class="fl button btn-cancel" @click="ShowAddressSelector">取消</span>
 			<span id="btn-ok" class="fr button btn-ok" @click="submitAddress">确定</span>
 		</div>
 		<div class="li-content" v-iScroll="IScrollFun" v-for="(area_item,index) in City_G" :data-index="index" :data-initHeight="City_Init[index]">
@@ -78,12 +78,13 @@ export default{
 			Address:{
 				name: '',
 				mobile: '',
-				province: '广东省',
-				city : '广州市',
-				area : '荔湾区',
+				province: '',
+				city : '',
+				area : '',
 				address : '',
 			},
-			isShow:true,
+			City_text:'',
+			isShow:false,
 			City_G:['province','city','area'],
 			City_Init:[-1,-1,-1],
 			CityData:{
@@ -92,12 +93,14 @@ export default{
 				area:[]
 			},
 			choose_index:[0,0,0],
-			chooseCitySn: ''
+			chooseCitySn: '',
+			visable: true
 		}
 	},
 	mounted(){
-		//this.GetUserAddress();
-		this.InitAddressSelector();
+		if(this.$route.query.cid){
+			this.GetUserAddress();
+		}
 	},
 	methods:{
 		GetUserAddress(){
@@ -111,7 +114,7 @@ export default{
 				params:{
 					userid : this.$userId,
 					method: 'getUserAddress',
-					aid : '11'
+					aid : this.$route.query.cid
 				}
 			}).then((res)=>{
 				if(res.data.status == 0){
@@ -127,6 +130,7 @@ export default{
 			})
 		},
 		InitAddressSelector(){
+			//地址选择器初始化
 			if(this.Address.province == ''){
 				//无默认值时，初始化全部
 				this.UpData(0);
@@ -136,7 +140,6 @@ export default{
 				for(let key in this.City_G){
 
 					this.UpData(key,false);
-					console.log(this.CityData)
 
 					let temp_CityData = this.CityData[this.City_G[key]]
 
@@ -153,8 +156,11 @@ export default{
 		},
 		ShowAddressSelector(){
 			this.isShow = !this.isShow;
+			if(this.isShow)
+				this.InitAddressSelector();
 		},
 		UpData(deep,isDeep){
+			//更新地址数据
 			if(!isDeep) isDeep = true;
 
 			if(isDeep){
@@ -166,6 +172,8 @@ export default{
 					//获取当前Deep Son对象
 					let temp_obj = i == 0 ? AddressData : this.ReTurnSon(i-1,AddressData);
 					this.CityData[City_G[i]] = [];
+
+					if(temp_obj.length == 0) break;
 					for(let item of temp_obj){
 						if(!item.area_name) break;
 						this.CityData[City_G[i]].push(item);
@@ -183,7 +191,7 @@ export default{
 
 			function GetSon(deep,obj,now_deep){
 				now_deep = now_deep || 0;
-				let Temp_obj = obj[temp_choose_index[now_deep]].son || {};
+				let Temp_obj = obj[temp_choose_index[now_deep]].son || [];
 				if(deep > now_deep && now_deep < 3){
 					GetSon(deep,Temp_obj,now_deep+1);
 				}else{
@@ -240,7 +248,8 @@ export default{
 				if(key == 0){
 					this.Address[this.City_G[key]] = AddressData[temp_array[key]].area_name
 				}else{
-					this.Address[this.City_G[key]] = this.ReTurnSon(key-1,AddressData)[temp_array[key]].area_name
+					let Temp = this.ReTurnSon(key-1,AddressData);
+					this.Address[this.City_G[key]] = Temp.length != 0 ?Temp[temp_array[key]].area_name : ''
 				}
 			}
 
@@ -277,7 +286,7 @@ export default{
 				setTimeout(()=>{
 					vnode.scroll.refresh();
 					if(initHeight != -1){
-						vnode.scroll.scrollTo(0, initHeight);
+						vnode.scroll.scrollTo(0, initHeight,500);
 					}
 				},0)
 			},
@@ -285,6 +294,33 @@ export default{
 				vnode.scroll = oldVnode.scroll;
                 vnode.scroll.destroy();
                 vnode.scroll = null;
+			}
+		}
+	},
+	watch:{
+		Address:{
+			deep: true,
+			handler: function(newVal,oldVal){
+				//处理省市文本
+				if(newVal.province != ''){
+					this.City_text = newVal.province + ' ' + newVal.city + ' ' + newVal.area;
+				}else{
+					this.City_text = '';
+				}
+
+				let length = 0;
+				let space_length = 0;
+				//处理按钮
+				for(let key in newVal){
+					if(newVal[key] != ''){
+						space_length++;
+					}
+					length++;
+				}
+
+				if(space_length == length){
+					this.visable = false
+				}
 			}
 		}
 	}

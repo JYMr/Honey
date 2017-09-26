@@ -17,14 +17,14 @@
 				</div>
 				<label :for="'checkbox_' + index">设置为默认值</label>
 
-				<a href="javascript:;" class="btn btn-sm-outline fr">编辑</a>
+				<a @click="LinkAddressEdit(item.id)" class="btn btn-sm-outline fr">编辑</a>
 				<a href="javascript:;" class="btn btn-sm-outline fr">删除</a>
 			</div>
 
 		</div>
 		
 		<div class="btn-content">
-			<input type="button" class="btn" name="" value="添加地址">
+			<router-link to="/AddressEdit" class="btn">添加地址</router-link>
 		</div>
 
 	</div>
@@ -47,12 +47,16 @@ export default{
 	},
 	methods:{
 		GetAddressList(){
+			this.$Toast.show({
+				type: 5,
+				time: 0
+			})
 			axios.request({
 				url: this.$url + '/ApiImplements.htm',
 				methods: 'get',
 				params:{
 					userid : this.$userId,
-					method: 'getUserAddrss'
+					method: 'getUserAddress'
 				}
 			}).then((res)=>{
 				if(res.data.status == 0){
@@ -61,11 +65,17 @@ export default{
 						if(this.AddressList[key].isDefault == 1)
 							this.isDefault = key;
 					}
+					this.$Toast.close();
 				}
 			})
 		},
 		LinkAddressEdit(id){
-			
+			this.$router.push({
+				path: '/AddressEdit',
+				query: {
+					cid : id
+				}
+			})
 		}
 	}
 }
