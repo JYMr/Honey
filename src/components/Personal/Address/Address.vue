@@ -18,7 +18,7 @@
 				<label :for="'checkbox_' + index">设置为默认值</label>
 
 				<a @click="LinkAddressEdit(item.id)" class="btn btn-sm-outline fr">编辑</a>
-				<a href="javascript:;" class="btn btn-sm-outline fr">删除</a>
+				<a @click="DelAddress(item.id)" href="javascript:;" class="btn btn-sm-outline fr">删除</a>
 			</div>
 
 		</div>
@@ -60,7 +60,7 @@ export default{
 				}
 			}).then((res)=>{
 				if(res.data.status == 0){
-					this.AddressList = res.data.AddressList;
+					this.AddressList = res.data.Address;
 					for(let key in this.AddressList){
 						if(this.AddressList[key].isDefault == 1)
 							this.isDefault = key;
@@ -69,11 +69,52 @@ export default{
 				}
 			})
 		},
+		DelAddress(id){
+
+			var _this = this;
+
+			this.$Toast.show({
+				type: 3,
+				time: 0,
+				title: '是否删除这条地址',
+				callback: function(res){
+					if(res == 1){
+
+						_this.$Toast.show({
+							type: 5,
+							time: 0
+						})
+						axios.request({
+							url: _this.$url + '/ApiImplements.htm',
+							methods: 'get',
+							params:{
+								userid : _this.$userId,
+								method: 'DelUserAddress',
+								aid : id
+							}
+						}).then((res)=>{
+							if(res.data.status == 0){
+
+								_this.$Toast.close();
+
+								_this.$Toast.show({
+									type: 1,
+									title: '操作成功'
+								})
+								_this.GetAddressList();
+							}
+						})
+
+					}
+				}
+			})
+
+		},
 		LinkAddressEdit(id){
-			this.$router.push({
+			this.$router.replace({
 				path: '/AddressEdit',
 				query: {
-					cid : id
+					aid : id
 				}
 			})
 		}

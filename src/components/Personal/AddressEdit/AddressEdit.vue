@@ -43,7 +43,8 @@
 	</div>
 
 	<div class="btn-content">
-		<button type="button" class="btn" :disabled="visable">保存</button>
+		<button type="button" class="btn" :disabled="visable" @click="ConfirmAddress">保存</button>
+		<button type="button" class="btn" @click="Back">返回</button>
 	</div>
 
 	<!-- 地址选择器 -->
@@ -75,6 +76,7 @@ import iScroll from 'iscroll'
 export default{
 	data(){
 		return {
+			mode: 0,//mode 0: 新增模式 1: 修改模式
 			Address:{
 				name: '',
 				mobile: '',
@@ -98,7 +100,8 @@ export default{
 		}
 	},
 	mounted(){
-		if(this.$route.query.cid){
+		if(this.$route.query.aid){
+			this.mode = 1;
 			this.GetUserAddress();
 		}
 	},
@@ -114,7 +117,7 @@ export default{
 				params:{
 					userid : this.$userId,
 					method: 'getUserAddress',
-					aid : this.$route.query.cid
+					aid : this.$route.query.aid
 				}
 			}).then((res)=>{
 				if(res.data.status == 0){
@@ -128,6 +131,36 @@ export default{
 					this.$Toast.close();
 				}
 			})
+		},
+		ConfirmAddress(){
+			this.$Toast.show({
+				type: 5,
+				time : 0
+			})
+			axios.request({
+				url : this.$url + 'ApiImplements.htm',
+				params:{
+					userid : this.$userId,
+					method: this.mode == 0 ? 'InsUserAddress' : 'UpdateUserAddress',
+					aid : this.mode == 0 ? '': this.$route.query.aid,
+					name : this.Address.name,
+					mobile : this.Address.mobile,
+					city: this.Address.province + '|' + this.Address.city + '|' + this.Address.area +  '|' + this.Address.address
+				}
+			}).then((res)=>{
+				if(res.data.status == 0){
+					this.$Toast.close();
+
+					this.$Toast.show({
+						type : 1,
+						title : this.mode ? '添加成功' : '修改成功'
+					})
+					this.Back();
+				}
+			})
+		},
+		Back(){
+			this.$router.back(-1);
 		},
 		InitAddressSelector(){
 			//地址选择器初始化
@@ -254,7 +287,8 @@ export default{
 			}
 
 			//获取city areasn
-			this.chooseCitySn = this.ReTurnSon(1,AddressData)[this.choose_index[2]].areasn;
+			this.chooseCitySn = 
+				this.ReTurnSon(1,AddressData)[this.choose_index[2]] ? this.ReTurnSon(1,AddressData)[this.choose_index[2]].areasn : this.ReTurnSon(0,AddressData)[this.choose_index[2]];
 
 			//关闭地址选择器
 			this.ShowAddressSelector();
@@ -318,7 +352,7 @@ export default{
 					length++;
 				}
 
-				if(space_length == length){
+				if(space_length >= length - 1){
 					this.visable = false
 				}
 			}
