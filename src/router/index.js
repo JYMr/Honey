@@ -72,7 +72,8 @@ const NavBottom = [
 			foot: Foot
 		},
 		meta: {
-			title: '我的'
+			title: '我的',
+			LoginAuth: true
 		}
 	}
 ]
@@ -160,6 +161,39 @@ const router = new Router({
 	mode: 'history',
 	routes: routes.concat(NavBottom,GoodsPath,AddressPath,LoginPath,PersonalPath,OrderPath),
 	linkActiveClass: 'active',
+})
+
+//路由导航钩子
+router.beforeEach((to, from, next) => {
+
+	let login_token = localStorage.getItem("login_token");
+
+	if(to.meta.LoginAuth && login_token == null){
+		login_token = to.query.login_token;
+		if(login_token){
+			localStorage.setItem("login_token",login_token)
+			next({
+				path : to.fullpage
+			})
+		}else{
+			next({
+				path : '/login'
+			})
+		}
+	}else{
+		next();
+	}
+
+	/*处理Title*/
+	document.title = to.meta.title == undefined ? 'Honey' : to.meta.title 
+
+	/*处理Meta 背景设置*/
+	if(to.meta.backgroundColor) {
+		document.getElementsByTagName('body')[0].style.background = to.meta.backgroundColor
+	}else{
+		document.getElementsByTagName('body')[0].style.background = '';
+	}
+
 })
 
 export default router

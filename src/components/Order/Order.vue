@@ -142,7 +142,7 @@ export default{
 			})
 		},
 		LinkToStatus(index){
-			this.$router.push({
+			this.$router.replace({
 				path: '/order',
 				query: {
 					status : this.OrderStatus[index].status

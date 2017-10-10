@@ -70,7 +70,7 @@ export default{
 			})
 		},
 		DelAddress(id){
-
+			//删除地址
 			var _this = this;
 
 			this.$Toast.show({

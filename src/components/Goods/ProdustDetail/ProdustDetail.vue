@@ -132,7 +132,7 @@ export default{
 					method : 'AddCart',
 					gid: this.id,
 					total: 1,
-                    userid: 'orwX1sr2tZmfLiA9B2W5EP0hippE',
+                    userid: this.$userId,
 				}
 			}).then((res)=>{
 				if(res.data.status == 0){

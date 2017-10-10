@@ -1,5 +1,6 @@
 body{background-color: #f2f2f2;}
 
+.address-list{padding-bottom: .375rem;}
 /*编辑地址*/
 .address-list-item{font-size: .375rem;margin-bottom: .375rem;color: #333;background-color: #fff;}
 	.address-list-text{padding: .375rem;border-bottom: .03125rem solid #e5e5e5;}
