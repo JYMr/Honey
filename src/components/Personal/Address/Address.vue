@@ -102,6 +102,13 @@ export default{
 									title: '操作成功'
 								})
 								_this.GetAddressList();
+							}else{
+								
+								_this.$Toast.close();
+								_this.$Toast.show({
+									type: 1,
+									title: res.data.msg
+								})
 							}
 						})
 
@@ -110,6 +117,45 @@ export default{
 			})
 
 		},
+		HandleDefault(newVal,oldVal){
+			if(oldVal == '') return;
+
+			let index = parseInt(newVal);
+			let aid = this.AddressList[index].id;
+
+			this.$Toast.show({
+				type:5,
+				time:0
+			})
+
+			axios.request({
+				url: this.$url + '/ApiImplements.htm',
+				methods: 'get',
+				params:{
+					userid : this.$userId,
+					method: 'UpdateUserAddress',
+					aid : aid,
+					isDefault : 1
+				}
+			}).then((res)=>{
+				if(res.data.status == 0){
+					this.$Toast.close();
+				}else{
+					this.$Toast.close();
+					this.$Toast.show({
+						type: 1,
+						title: res.data.msg
+					})
+				}
+			}).catch((err)=>{
+				this.$Toast.close();
+				this.$Toast.show({
+					type: 1,
+					title: '网络错误,请重试',
+					time: 1500
+				})
+			})
+		},
 		LinkAddressEdit(id){
 			this.$router.replace({
 				path: '/AddressEdit',
@@ -117,6 +163,11 @@ export default{
 					aid : id
 				}
 			})
+		}
+	},
+	watch:{
+		isDefault(newVal,oldVal){
+			this.HandleDefault(newVal,oldVal);
 		}
 	}
 }
