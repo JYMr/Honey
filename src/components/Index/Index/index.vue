@@ -50,9 +50,9 @@ export default{
 			PageSize: 8
 		}
 	},
-	mounted:function(){
+	mounted(){
 		//this.GetBanner();
-		this.GetHotProdust();
+		//this.GetHotProdust();
 		this.ListenScroll();
 	},
 	methods:{
@@ -131,7 +131,7 @@ export default{
 			console.log(newVal)
 		}
 	},
-	beforeDestory(){
+	beforeDestroy(){
 		window.removeEventListener('scroll',this.scroll);
 	}
 }

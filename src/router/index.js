@@ -27,10 +27,7 @@ Vue.use(Router)
 const routes = [
     {
       path: '/',
-      components: {
-      	content : Index,
-		foot:Foot
-      }
+      redirect: '/Index'
     },
 	{
 		path: '*',
@@ -52,7 +49,7 @@ const NavBottom = [
 			foot:Foot
 		},
 		meta: {
-			title: '首页!'
+			title: '首页'
 		}
 	},
 	{

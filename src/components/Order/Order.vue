@@ -157,7 +157,7 @@ export default{
 			this.GetOrderList();
 		}
 	},
-	beforeDestory(){
+	beforeDestroy(){
 		window.removeEventListener('scroll',this.scroll);
 	}
 }

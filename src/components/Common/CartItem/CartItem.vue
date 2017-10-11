@@ -104,7 +104,6 @@ import axios from 'axios'
                 })
             },
             seller(val,oldval){
-                console.log('!!!');
                 this.checkboxStatus = (val.ischoose == 0 ? false : true) || false;
             }
         }

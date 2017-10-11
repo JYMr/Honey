@@ -59,7 +59,7 @@ export default{
 			}).then((res)=>{
 				if(res.data.status == 0){
 					this.$Toast.close();
-					this.Cart_list = this.Cart_list.concat(res.data.detail);
+					this.Cart_list = this.Cart_list.concat(res.data.CartList);
 				}
 			})
 		},

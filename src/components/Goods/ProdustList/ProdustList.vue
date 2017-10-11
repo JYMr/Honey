@@ -116,7 +116,7 @@ export default{
 	components:{
 		ProdustItem
 	},
-	beforeDestory(){
+	beforeDestroy(){
 		window.removeEventListener('scroll',this.scroll);
 	}
 }
