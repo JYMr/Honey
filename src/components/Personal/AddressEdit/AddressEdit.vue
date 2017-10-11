@@ -133,6 +133,15 @@ export default{
 			})
 		},
 		ConfirmAddress(){
+
+			if(!/^((1[3,5,8][0-9])|(14[5,7])|(17[0,6,7,8])|(19[7]))\d{8}$/.test(this.Address.mobile)){
+				this.$Toast.show({
+					type: 1,
+					time : 1500,
+					title: '请输入正确的格式的手机号码'
+				})
+				return;
+			}
 			this.$Toast.show({
 				type: 5,
 				time : 0
@@ -352,8 +361,10 @@ export default{
 					length++;
 				}
 
-				if(space_length >= length - 1){
-					this.visable = false
+				if(space_length == length || ( space_length == length - 1 && newVal.area == '')){
+					this.visable = false;
+				}else{
+					this.visable = true;
 				}
 			}
 		}
