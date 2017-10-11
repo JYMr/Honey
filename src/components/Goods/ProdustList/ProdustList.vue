@@ -44,7 +44,8 @@ export default{
 	created(){
 		this.SearchKeyWord = this.$route.query.keyword || '';
 		this.GetProdustListData();
-		this.ListenScroll();
+		
+		window.addEventListener('scroll',this.ListenScroll);
 	},
 	methods:{
 		onSubmit(){
@@ -92,32 +93,30 @@ export default{
 			let _self = this;
 			let scrolledTop = 0;
 
-			window.addEventListener('scroll',function(){
-				//触底加载
-				if(_self.isNeedLoad){
-					if(document.body.scrollHeight - window.innerHeight <= document.body.scrollTop){
-						_self.isNeedLoad = false;
-						_self.No += 1;
-						_self.GetProdustListData(function(){
-							_self.isNeedLoad = true;
-						});
-					}
+			//触底加载
+			if(_self.isNeedLoad){
+				if(document.body.scrollHeight - window.innerHeight <= document.body.scrollTop){
+					_self.isNeedLoad = false;
+					_self.No += 1;
+					_self.GetProdustListData(function(){
+						_self.isNeedLoad = true;
+					});
 				}
-				//搜索栏效果
-				if(document.body.scrollTop > scrolledTop){
-					_self.isSeachBar = false;
-				}else{
-					_self.isSeachBar = true;
-				}
-				scrolledTop = document.body.scrollTop;
-			})
+			}
+			//搜索栏效果
+			if(document.body.scrollTop > scrolledTop){
+				_self.isSeachBar = false;
+			}else{
+				_self.isSeachBar = true;
+			}
+			scrolledTop = document.body.scrollTop;
 		},
 	},
 	components:{
 		ProdustItem
 	},
 	beforeDestroy(){
-		window.removeEventListener('scroll',this.scroll);
+		window.removeEventListener('scroll',this.ListenScroll);
 	}
 }
 

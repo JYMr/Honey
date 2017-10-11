@@ -52,8 +52,9 @@ export default{
 	},
 	mounted(){
 		//this.GetBanner();
-		//this.GetHotProdust();
-		this.ListenScroll();
+		this.GetHotProdust();
+
+		window.addEventListener('scroll',this.ListenScroll);
 	},
 	methods:{
 		ToProdustList(even){
@@ -109,17 +110,15 @@ export default{
 		ListenScroll(){
 			//监听滚动：触底加载
 			let _self = this;
-			window.addEventListener('scroll',function(){
-				if(_self.isNeedLoad){
-					if(document.body.scrollHeight - window.innerHeight <= document.body.scrollTop){
-						_self.isNeedLoad = false;
-						_self.No += 1;
-						_self.GetHotProdust(function(){
-							_self.isNeedLoad = true;
-						});
-					}
+			if(_self.isNeedLoad){
+				if(document.body.scrollHeight - window.innerHeight <= document.body.scrollTop){
+					_self.isNeedLoad = false;
+					_self.No += 1;
+					_self.GetHotProdust(function(){
+						_self.isNeedLoad = true;
+					});
 				}
-			})
+			}
 		}
 	},
 	components:{
@@ -132,7 +131,7 @@ export default{
 		}
 	},
 	beforeDestroy(){
-		window.removeEventListener('scroll',this.scroll);
+		window.removeEventListener('scroll',this.ListenScroll);
 	}
 }
 </script>
