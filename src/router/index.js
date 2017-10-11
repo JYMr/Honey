@@ -20,7 +20,8 @@ import ForgetPasswordInput from '@/components/Login/ForgetPasswordInput/ForgetPa
 
 import Personal from '@/components/Personal/Personal/Personal'
 
-import Order from '@/components/Order/Order'
+import Order from '@/components/Order/Order/Order'
+import ConfirmOrder from '@/components/Order/ConfirmOrder/ConfirmOrder'
 
 Vue.use(Router)
 /*重定向*/
@@ -150,6 +151,12 @@ const OrderPath = [
 		path: '/Order',
 		components:{
 			content: Order
+		}
+	},
+	{
+		path: '/ConfirmOrder',
+		components:{
+			content: ConfirmOrder
 		}
 	}
 ]
