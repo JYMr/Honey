@@ -156,6 +156,9 @@ export default{
 			this.OrderList = [];
 			this.GetOrderList();
 		}
+	},
+	beforeDestory(){
+		window.removeEventListener('scroll',this.scroll);
 	}
 }
 

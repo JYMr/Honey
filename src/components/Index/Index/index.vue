@@ -4,7 +4,7 @@
 		<!-- 搜索框 开始 -->
 		<form v-on:submit.prevent="ToProdustList">
 			<div class="search search-index">
-				<input type="text" v-model="SearchKeyWord" placeholder="搜索您感兴趣的商品" @focus="FuckYOU">
+				<input type="text" v-model="SearchKeyWord" placeholder="搜索您感兴趣的商品">
 			</div>
 		</form>
 
@@ -120,9 +120,6 @@ export default{
 					}
 				}
 			})
-		},
-		FuckYOU(){
-			console.log('!!')
 		}
 	},
 	components:{
@@ -133,6 +130,9 @@ export default{
 		SearchKeyWord(newVal,oldVal){
 			console.log(newVal)
 		}
+	},
+	beforeDestory(){
+		window.removeEventListener('scroll',this.scroll);
 	}
 }
 </script>
