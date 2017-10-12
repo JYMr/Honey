@@ -102,9 +102,10 @@ export default{
 			let type = this.type;
 			if(typeof time != 'number') time = parseInt(time);
 
-			if(time == 0 || (type == 1 && time == -1) || ( type == 5 && time == -1 )) return;
+			if(time == 0 || (type == 1 && time == 0) || ( type == 5 && time == 0 )) return;
 			//Default time
 			time = 1500;
+			console.log('time = ' + time);
 			setTimeout(()=>{
 				this.CloseToast();
 			},time)
