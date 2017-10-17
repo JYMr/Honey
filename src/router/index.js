@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import axios from 'axios'
 import Index from '@/components/Index/Index/Index'
 import Cart from '@/components/Index/Cart/Cart'
 import Home from '@/components/Index/Home/Home'
@@ -170,19 +171,67 @@ const router = new Router({
 //路由导航钩子
 router.beforeEach((to, from, next) => {
 
-	let login_token = localStorage.getItem("login_token");
+	
+	let login_token = Vue.prototype.$userId;
+	let localCode = localStorage.getItem('login_code');
+	let LoginAuth = to.meta.LoginAuth;
 
-	if(to.meta.LoginAuth && login_token == null){
-		login_token = to.query.login_token;
-		if(login_token){
-			localStorage.setItem("login_token",login_token)
-			next({
-				path : to.fullpage
+	let AutoLogin = function(callback){
+
+		//有登录码，自动登录，验证状态
+		axios.request({
+			url: Vue.prototype.$url + '/Autologin.htm',
+			params:{
+				code : localCode
+			},
+			method: "get"
+		}).then((res)=>{
+			if(res.data.status == 0){
+				Vue.prototype.$userId = res.data.data.token;
+				localStorage.setItem('login_code',res.data.data.code);
+				if(callback) callback(0);
+			}else{
+				//登录码失效
+				localStorage.setItem('login_code','');
+				localStorage.setItem('login_token','');
+				if(callback) callback(-1);
+			}
+		}).catch((err)=>{
+			//网络错误，无法验证Code，清除token
+			localStorage.setItem('login_code','');
+			if(callback) callback(-1);
+		});
+	}
+
+	if(localCode){
+		//有登录码
+		if(!LoginAuth && login_token == null){
+			//无需用户验证
+			AutoLogin();
+			next();
+		}else if(LoginAuth && login_token == null){
+			//需用户验证
+			AutoLogin((res)=>{
+				if(res == 0){
+					localStorage.setItem("login_token",login_token)
+					next({
+						path : to.fullpage
+					})
+				}else{
+					next({
+						path : '/login'
+					})
+				}
 			})
-		}else{
+		}
+		console.log('!')
+	}else if(!localCode){
+		if(login_token == null && LoginAuth){
 			next({
 				path : '/login'
 			})
+		}else{
+			next();
 		}
 	}else{
 		next();

@@ -55,6 +55,8 @@ export default{
 		this.GetHotProdust();
 
 		window.addEventListener('scroll',this.ListenScroll);
+
+		this.$Toast.close()
 	},
 	methods:{
 		ToProdustList(even){

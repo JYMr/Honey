@@ -95,11 +95,29 @@ export default{
 				this.disable = true;
 				this.loginVal = '登录中...'
 				/*--调用登录接口--*/
-				setTimeout(()=>{
-					this.$router.push({
-						path : '/Index'
-					});
-				},3000)
+
+				axios.request({
+					url : this.$url + '/Login.htm',
+					methods: 'post',
+					params:{
+						username : this.username,
+						password: this.password
+					}
+				}).then((res)=>{
+					if(res.data.status == 0){
+						localstorage.setItem('login_token',res.data.data.token);
+					}else{
+						this.$Toast.show({
+							type: 1,
+							title: res.data.msg
+						})
+					}
+				}).catch(()=>{
+					this.$Toast.show({
+						type: 1,
+						title: "网络错误"
+					})
+				})
 			}else{
 				this.$Toast.show({
 					type:1,
