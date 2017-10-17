@@ -3,25 +3,25 @@ import Router from 'vue-router'
 import Index from '@/components/Index/Index/Index'
 import Cart from '@/components/Index/Cart/Cart'
 import Home from '@/components/Index/Home/Home'
-import ErrorPage from '@/components/Error'
+const ErrorPage = () => import('@/components/Error')
 
 import Foot from '@/components/Common/Foot/Foot'
 
-import ProdustDetail from '@/components/Goods/ProdustDetail/ProdustDetail'
-import ProdustList from '@/components/Goods/ProdustList/ProdustList'
+const ProdustDetail = () => import('@/components/Goods/ProdustDetail/ProdustDetail')
+const ProdustList = () => import('@/components/Goods/ProdustList/ProdustList')
 
-import Address from '@/components/Personal/Address/Address'
-import AddressEdit from '@/components/Personal/AddressEdit/AddressEdit'
+const Address = () => import('@/components/Personal/Address/Address')
+const AddressEdit = () => import('@/components/Personal/AddressEdit/AddressEdit')
 
-import Login from '@/components/Login/Login/Login'
-import Register from '@/components/Login/Register/Register'
-import ForgetPassword from '@/components/Login/ForgetPassword/ForgetPassword'
-import ForgetPasswordInput from '@/components/Login/ForgetPasswordInput/ForgetPasswordInput'
+const Login = () => import('@/components/Login/Login/Login')
+const Register = () => import('@/components/Login/Register/Register')
+const ForgetPassword = () => import('@/components/Login/ForgetPassword/ForgetPassword')
+const ForgetPasswordInput = () => import('@/components/Login/ForgetPasswordInput/ForgetPasswordInput')
 
-import Personal from '@/components/Personal/Personal/Personal'
+const Personal = () => import('@/components/Personal/Personal/Personal')
 
-import Order from '@/components/Order/Order/Order'
-import ConfirmOrder from '@/components/Order/ConfirmOrder/ConfirmOrder'
+const Order = () => import('@/components/Order/Order/Order')
+const ConfirmOrder = () => import('@/components/Order/ConfirmOrder/ConfirmOrder')
 
 Vue.use(Router)
 /*重定向*/
