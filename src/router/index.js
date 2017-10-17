@@ -180,7 +180,7 @@ router.beforeEach((to, from, next) => {
 
 		//有登录码，自动登录，验证状态
 		axios.request({
-			url: Vue.prototype.$url + '/Autologin.htm',
+			url: Vue.prototype.$url + '/AutoLogin.htm',
 			params:{
 				code : localCode
 			},
@@ -188,7 +188,6 @@ router.beforeEach((to, from, next) => {
 		}).then((res)=>{
 			if(res.data.status == 0){
 				Vue.prototype.$userId = res.data.data.token;
-				localStorage.setItem('login_code',res.data.data.code);
 				if(callback) callback(0);
 			}else{
 				//登录码失效
@@ -213,7 +212,6 @@ router.beforeEach((to, from, next) => {
 			//需用户验证
 			AutoLogin((res)=>{
 				if(res == 0){
-					localStorage.setItem("login_token",login_token)
 					next({
 						path : to.fullpage
 					})
@@ -223,6 +221,8 @@ router.beforeEach((to, from, next) => {
 					})
 				}
 			})
+		}else{
+			next();
 		}
 		console.log('!')
 	}else if(!localCode){

@@ -31,6 +31,8 @@
 
 <script type="text/javascript">
 
+import axios from 'axios'
+
 export default{
 	data(){
 		return {
@@ -98,25 +100,24 @@ export default{
 
 				axios.request({
 					url : this.$url + '/Login.htm',
-					methods: 'post',
+					methods: 'get',
 					params:{
 						username : this.username,
 						password: this.password
 					}
 				}).then((res)=>{
 					if(res.data.status == 0){
-						localstorage.setItem('login_token',res.data.data.token);
+						this.$userId = res.data.data.token;
+						localStorage.setItem("login_code",res.data.data.code)
+						this.$router.replace({
+							path: '/Index'
+						})
 					}else{
 						this.$Toast.show({
 							type: 1,
 							title: res.data.msg
 						})
 					}
-				}).catch(()=>{
-					this.$Toast.show({
-						type: 1,
-						title: "网络错误"
-					})
 				})
 			}else{
 				this.$Toast.show({

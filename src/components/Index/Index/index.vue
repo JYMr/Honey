@@ -90,7 +90,7 @@ export default{
 				params:{
 					no : _self.No,
 					page : _self.PageSize,
-					method:'getProdustList'
+					method:'getProductList'
 				}
 			}).then((res)=>{
 				if(res.data.status == 0){
