@@ -11,7 +11,7 @@ import Toast from './components/Common/Toast/Toast'
 //注入Http配置
 Vue.prototype.$url = http_url;
 //Dev UserId
-Vue.prototype.$userId = 'orwX1sjqDWIOXtusI4Tab23-eyIk';
+Vue.prototype.$userId = null;
 //注入Toast
 Vue.prototype.$Toast = Toast
 
