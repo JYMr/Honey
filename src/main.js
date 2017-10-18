@@ -13,9 +13,9 @@ Vue.prototype.$url = http_url;
 //Dev UserId
 Vue.prototype.$userId = null;
 //注入Toast
-Vue.prototype.$Toast = Toast
+Vue.prototype.$Toast = Toast;
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

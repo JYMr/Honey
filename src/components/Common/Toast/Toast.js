@@ -3,7 +3,7 @@
 	Version:0.0.3(2017/10/12)
 */
 import Vue from 'vue';
-let DialogContent = Vue.extend(require('./Toast.vue'));
+let ToastContent = Vue.extend(require('./Toast.vue'));
 
 let content;
 
@@ -19,14 +19,13 @@ let Toast = {
 
 		if(content) DestroyNow(content);
 
-		content = new DialogContent({
+		content = new ToastContent({
 			data : option
 		})
 
 		content.vm = content.$mount();
 		document.body.appendChild(content.vm.$el);
 		content.vm.visible = true;
-		content.dom = content.vm.$el;
 	}
 }
 

@@ -17,6 +17,7 @@
 .loading .model-html{position: relative;height: 2rem;}
 .loading .model-title{margin-top: .2rem;color: #fff;}
 
+/*Toast动画样式*/
 .Bounce-enter-active{animation: bounceIn .5s;}
 .Bounce-leave-active{animation-name: bounceOutDown;animation-duration: 1s;animation-fill-mode: both;}
 

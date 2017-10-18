@@ -23,6 +23,7 @@ const Personal = () => import('@/components/Personal/Personal/Personal')
 
 const Order = () => import('@/components/Order/Order/Order')
 const ConfirmOrder = () => import('@/components/Order/ConfirmOrder/ConfirmOrder')
+const Evaluate = () => import('@/components/Order/Evaluate/Evaluate')
 
 Vue.use(Router)
 /*重定向*/
@@ -159,12 +160,27 @@ const OrderPath = [
 		components:{
 			content: ConfirmOrder
 		}
+	},
+	{
+		path: '/Evaluate',
+		components:{
+			content: Evaluate
+		}
 	}
 ]
 
+const routesAll = routes.concat(
+	NavBottom,
+	GoodsPath,
+	AddressPath,
+	LoginPath,
+	PersonalPath,
+	OrderPath
+);
+
 const router = new Router({
 	mode: 'history',
-	routes: routes.concat(NavBottom,GoodsPath,AddressPath,LoginPath,PersonalPath,OrderPath),
+	routes: routesAll,
 	linkActiveClass: 'active',
 })
 

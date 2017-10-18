@@ -105,7 +105,6 @@ export default{
 			if(time == 0 || (type == 1 && time == 0) || ( type == 5 && time == 0 )) return;
 			//Default time
 			time = 1500;
-			console.log('time = ' + time);
 			setTimeout(()=>{
 				this.CloseToast();
 			},time)
