@@ -132,7 +132,7 @@ export default{
 					method : 'AddCart',
 					gid: this.id,
 					total: 1,
-                    userid: this.$userId,
+                    token: this.$token,
 				}
 			}).then((res)=>{
 				if(res.data.status == 0){

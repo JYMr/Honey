@@ -62,7 +62,8 @@ const NavBottom = [
 			foot: Foot
 		},
 		meta: {
-			title: '购物车'
+			title: '购物车',
+			LoginAuth: true
 		}
 	},
 	{
@@ -127,6 +128,10 @@ const PersonalPath = [
 		path: '/Personal',
 		components:{
 			content: Personal
+		},
+		meta: {
+			title: '',
+			LoginAuth: true
 		}
 	}
 ]
@@ -137,12 +142,20 @@ const AddressPath = [
 		path : '/Address',
 		components:{
 			content : Address
+		},
+		meta: {
+			title: '',
+			LoginAuth: true
 		}
 	},
 	{
 		path: '/AddressEdit',
 		components:{
 			content : AddressEdit
+		},
+		meta: {
+			title: '',
+			LoginAuth: true
 		}
 	}
 ]
@@ -153,18 +166,30 @@ const OrderPath = [
 		path: '/Order',
 		components:{
 			content: Order
+		},
+		meta: {
+			title: '',
+			LoginAuth: true
 		}
 	},
 	{
 		path: '/ConfirmOrder',
 		components:{
 			content: ConfirmOrder
+		},
+		meta: {
+			title: '',
+			LoginAuth: true
 		}
 	},
 	{
 		path: '/Evaluate',
 		components:{
 			content: Evaluate
+		},
+		meta: {
+			title: '',
+			LoginAuth: true
 		}
 	}
 ]
@@ -188,7 +213,7 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
 
 	
-	let login_token = Vue.prototype.$userId;
+	let login_token = Vue.prototype.$token;
 	let localCode = localStorage.getItem('login_code');
 	let LoginAuth = to.meta.LoginAuth;
 
@@ -203,7 +228,7 @@ router.beforeEach((to, from, next) => {
 			method: "get"
 		}).then((res)=>{
 			if(res.data.status == 0){
-				Vue.prototype.$userId = res.data.data.token;
+				Vue.prototype.$token = res.data.data.token;
 				if(callback) callback(0);
 			}else{
 				//登录码失效

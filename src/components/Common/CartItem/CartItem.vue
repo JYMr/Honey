@@ -92,7 +92,7 @@ import axios from 'axios'
                     methods: 'get',
                     params:{
                         method: 'setTotal',
-                        userid: 'orwX1sr2tZmfLiA9B2W5EP0hippE',
+                        token: this.$token,
                         cid: _self.seller.id,
                         total : _self.total
                     }

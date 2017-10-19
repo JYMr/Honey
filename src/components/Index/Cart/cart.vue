@@ -40,21 +40,21 @@ export default{
 		}
 	},
 	mounted(){
-		this.$Toast.show({
-			type: 5,
-			time: 0
-		})
 		this.GetCartData();
 	},
 	methods:{
 		GetCartData(){
+			this.$Toast.show({
+				type: 5,
+				time: 0
+			})
 			//获取购物车数据
 			axios.request({
 				url: this.$url + 'ApiImplements.htm',
 				mothods: 'get',
 				params:{
 					method: 'getCartList',
-					userid: 'orwX1sr2tZmfLiA9B2W5EP0hippE'
+					token: this.$token,
 				}
 			}).then((res)=>{
 				if(res.data.status == 0){
@@ -75,13 +75,11 @@ export default{
 							methods: 'get',
 							params:{
 								method: 'DelCart',
-								userid: 'orwX1sr2tZmfLiA9B2W5EP0hippE',
+								token: this.$token,
 								cid: this.Cart_list[index].id
 							}
 						}).then((res)=>{
 							if(res.data.status == 0){
-								console.log(res.data.msg);
-
 								let tempObject = this.Cart_list;
 								tempObject.splice(index,1);
 								this.Cart_list = tempObject;

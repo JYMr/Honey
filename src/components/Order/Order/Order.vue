@@ -104,7 +104,7 @@ export default{
 				url: this.$url + 'ApiImplements.htm',
 				methods: 'get',
 				params:{
-					userid: 'orwX1sjqDWIOXtusI4Tab23-eyIk',
+					token: this.$token,
 					method: 'getOrderList',
 					page: this.PageSize,
 					no: this.No,

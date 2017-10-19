@@ -115,7 +115,7 @@ export default{
 			axios.request({
 				url: this.$url + 'ApiImplements.htm',
 				params:{
-					userid : this.$userId,
+					token: this.$token,
 					method: 'getUserAddress',
 					aid : this.$route.query.aid
 				}
@@ -149,7 +149,7 @@ export default{
 			axios.request({
 				url : this.$url + 'ApiImplements.htm',
 				params:{
-					userid : this.$userId,
+					token: this.$token,
 					method: this.mode == 0 ? 'InsUserAddress' : 'UpdateUserAddress',
 					aid : this.mode == 0 ? '': this.$route.query.aid,
 					name : this.Address.name,

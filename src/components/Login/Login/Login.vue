@@ -107,7 +107,7 @@ export default{
 					}
 				}).then((res)=>{
 					if(res.data.status == 0){
-						this.$userId = res.data.data.token;
+						this.$token = res.data.data.token;
 						localStorage.setItem("login_code",res.data.data.code)
 						this.$router.replace({
 							path: '/Index'

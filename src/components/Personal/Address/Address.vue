@@ -55,7 +55,7 @@ export default{
 				url: this.$url + '/ApiImplements.htm',
 				methods: 'get',
 				params:{
-					userid : this.$userId,
+					token: this.$token,
 					method: 'getUserAddress'
 				}
 			}).then((res)=>{
@@ -88,7 +88,7 @@ export default{
 							url: _this.$url + '/ApiImplements.htm',
 							methods: 'get',
 							params:{
-								userid : _this.$userId,
+								userid : _this.$token,
 								method: 'DelUserAddress',
 								aid : id
 							}
@@ -132,7 +132,7 @@ export default{
 				url: this.$url + '/ApiImplements.htm',
 				methods: 'get',
 				params:{
-					userid : this.$userId,
+					token: this.$token,
 					method: 'UpdateUserAddress',
 					aid : aid,
 					isDefault : 1
