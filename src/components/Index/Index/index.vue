@@ -70,7 +70,7 @@ export default{
 		GetBanner(callback){
 			//获取Banner图片数据
 			let _self =this;
-			axios.get('static/data.json').then((res)=>{
+			this.$axios.get('static/data.json').then((res)=>{
 				_self.Banner_data.data = res.data.banner;
 				if(callback && typeof callback == 'function') callback();	
 			});
@@ -84,7 +84,7 @@ export default{
 
 			//更改为加载中状态
 			_self.Loadstatus = 1;
-			axios.request({
+			this.$axios.request({
 				url: this.$url + 'ApiImplements.htm',
 				methods: 'get',
 				params:{
@@ -94,17 +94,17 @@ export default{
 				}
 			}).then((res)=>{
 				if(res.data.status == 0){
-					if(res.data.data.length == 0){
+					if(res.data.Product.length == 0){
 						_self.Loadstatus = 2;
 						_self.isNeedLoad = false;
 						_callback;
 						return;
-					}else if(res.data.data.length < _self.PageSize){
+					}else if(res.data.Product.length < _self.PageSize){
 						_self.Loadstatus = 2;
 					}else{
 						_self.Loadstatus = 0;
 					}
-					this.ProdustList = this.ProdustList.concat(res.data.data);
+					this.ProdustList = this.ProdustList.concat(res.data.Product);
 					_callback;
 				}
 			});

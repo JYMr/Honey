@@ -4,10 +4,28 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 
+import axios from 'axios'
 import http_url from './http/http_conf'
 
 import Toast from './components/Common/Toast/Toast'
 
+//axios 全局 拦截器,用于token验证返回跳转
+axios.interceptors.response.use(function (response) {
+	//Token 非法时，重新登录
+	if(response.data.stutas == -2){
+		//尝试关闭Toast
+		Toast.close();
+		//跳转 /Login
+		router.push({
+			path: '/Login'
+		})
+		return null;
+	}else{
+		return response;	
+	}
+}, function (error) {
+	return Promise.reject(error);
+});
 
 
 //注入Http配置
@@ -16,6 +34,8 @@ Vue.prototype.$url = http_url;
 Vue.prototype.$token = null;
 //注入Toast
 Vue.prototype.$Toast = Toast;
+//注入axios
+Vue.prototype.$axios = axios;
 
 Vue.config.productionTip = false;
 /* eslint-disable no-new */

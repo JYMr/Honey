@@ -66,7 +66,7 @@ import axios from 'axios'
         watch:{
             checkboxStatus(){//监听是否选择该商品
                 var _self = this;
-                axios.request({
+                this.$axios.request({
                     url: this.$url + 'ApiImplements.htm',
                     methods: 'get',
                     params:{
@@ -87,7 +87,7 @@ import axios from 'axios'
             },
             total(){//监听该商品选择数量
                 var _self = this;
-                axios.request({
+                this.$axios.request({
                     url: this.$url + 'ApiImplements.htm',
                     methods: 'get',
                     params:{

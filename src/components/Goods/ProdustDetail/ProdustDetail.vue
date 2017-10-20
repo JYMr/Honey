@@ -103,7 +103,7 @@ export default{
 		GetProdustDetail(){
 			//获取商品详细信息
 			var _self = this;
-			axios.request({
+			this.$axios.request({
 				url: this.$url + 'ApiImplements.htm',
 				methods: 'get',
 				params:{
@@ -125,7 +125,7 @@ export default{
 		},
 		AddCart(){
 			//加入购物车
-			axios.request({
+			this.$axios.request({
 				url: this.$url + 'ApiImplements.htm',
 				methods: 'get',
 				params:{

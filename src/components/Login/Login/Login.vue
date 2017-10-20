@@ -98,7 +98,7 @@ export default{
 				this.loginVal = '登录中...'
 				/*--调用登录接口--*/
 
-				axios.request({
+				this.$axios.request({
 					url : this.$url + '/Login.htm',
 					methods: 'get',
 					params:{

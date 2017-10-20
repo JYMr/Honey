@@ -69,7 +69,7 @@
 					return false;
 				}
 				/*--获取验证码接口--*/
-				//axios.request({
+				//this.$axios.request({
 				//	
 				//}).then((res)=>{
 					this.isSend = true;

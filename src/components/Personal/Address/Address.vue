@@ -51,7 +51,7 @@ export default{
 				type: 5,
 				time: 0
 			})
-			axios.request({
+			this.$axios.request({
 				url: this.$url + '/ApiImplements.htm',
 				methods: 'get',
 				params:{
@@ -84,7 +84,7 @@ export default{
 							type: 5,
 							time: 0
 						})
-						axios.request({
+						this.$axios.request({
 							url: _this.$url + '/ApiImplements.htm',
 							methods: 'get',
 							params:{
@@ -128,7 +128,7 @@ export default{
 				time:0
 			})
 
-			axios.request({
+			this.$axios.request({
 				url: this.$url + '/ApiImplements.htm',
 				methods: 'get',
 				params:{

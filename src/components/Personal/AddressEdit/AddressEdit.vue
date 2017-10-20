@@ -112,7 +112,7 @@ export default{
 				time: 0
 			})
 
-			axios.request({
+			this.$axios.request({
 				url: this.$url + 'ApiImplements.htm',
 				params:{
 					token: this.$token,
@@ -146,7 +146,7 @@ export default{
 				type: 5,
 				time : 0
 			})
-			axios.request({
+			this.$axios.request({
 				url : this.$url + 'ApiImplements.htm',
 				params:{
 					token: this.$token,

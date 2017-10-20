@@ -66,7 +66,7 @@
 			SendCode(){
 				if(!this.isSend && this.ValiData(0) && this.isFirst){
 					//验证码请求接口
-					//axios.request({});
+					//this.$axios.request({});
 					//Success => 
 					this.$Toast.show({
 						type: 1,

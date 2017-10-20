@@ -100,7 +100,7 @@ export default{
 
 			this.Loadstatus = 1;
 
-			axios.request({
+			this.$axios.request({
 				url: this.$url + 'ApiImplements.htm',
 				methods: 'get',
 				params:{

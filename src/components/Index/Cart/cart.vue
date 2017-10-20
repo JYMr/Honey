@@ -49,7 +49,7 @@ export default{
 				time: 0
 			})
 			//获取购物车数据
-			axios.request({
+			this.$axios.request({
 				url: this.$url + 'ApiImplements.htm',
 				mothods: 'get',
 				params:{
@@ -70,7 +70,7 @@ export default{
 				time: 0,
 				callback: (index)=>{
 					if(index == 1){
-						axios.request({
+						this.$axios.request({
 							url: this.$url + 'ApiImplements.htm',
 							methods: 'get',
 							params:{

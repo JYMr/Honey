@@ -59,7 +59,7 @@ export default{
 				_callback=callback();
 
 			let _self = this;
-			axios.request({
+			this.$axios.request({
 				url: this.$url + 'ApiImplements.htm',
 				type: 'get',
 				params:{
