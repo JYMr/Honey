@@ -220,7 +220,7 @@ router.beforeEach((to, from, next) => {
 	let AutoLogin = function(callback){
 
 		//有登录码，自动登录，验证状态
-		this.$axios.request({
+		axios.request({
 			url: Vue.prototype.$url + '/AutoLogin.htm',
 			params:{
 				code : localCode

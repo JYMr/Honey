@@ -9,8 +9,10 @@ import http_url from './http/http_conf'
 
 import Toast from './components/Common/Toast/Toast'
 
+const instance = axios.create();
+
 //axios 全局 拦截器,用于token验证返回跳转
-axios.interceptors.response.use(function (response) {
+instance.interceptors.response.use(function (response) {
 	//Token 非法时，重新登录
 	if(response.data.stutas == -2){
 		//尝试关闭Toast
@@ -35,7 +37,7 @@ Vue.prototype.$token = null;
 //注入Toast
 Vue.prototype.$Toast = Toast;
 //注入axios
-Vue.prototype.$axios = axios;
+Vue.prototype.$axios = instance;
 
 Vue.config.productionTip = false;
 /* eslint-disable no-new */
