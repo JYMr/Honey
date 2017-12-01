@@ -1,7 +1,10 @@
 <template lang="html">
 	<div class="produst_item" v-on:click="LinkToProdustDetail(seller.id)">
 		<div>
-			<img :src="seller.imagesSrc || Default_img_src">
+
+			<div class="produst-img">
+				<img :src="seller.src || Default_img_src">
+			</div>
 
 			<div class="produst-item-text">
 				<div class="produst-item-name">{{seller.title}}</div>

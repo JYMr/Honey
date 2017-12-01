@@ -117,6 +117,8 @@ export default{
 							type: 1,
 							title: res.data.msg
 						})
+						this.disable = false;
+						this.loginVal = '登录'
 					}
 				})
 			}else{
