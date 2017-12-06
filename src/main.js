@@ -14,7 +14,7 @@ const instance = axios.create();
 //axios 全局 拦截器,用于token验证返回跳转
 instance.interceptors.response.use(function (response) {
 	//Token 非法时，重新登录
-	if(response.data.stutas == -2){
+	if(response.data.status == -2){
 		//尝试关闭Toast
 		Toast.close();
 		//跳转 /Login

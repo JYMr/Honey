@@ -33,7 +33,7 @@ const home_list_data = {
 		{
 			"src":"./static/images/list8.png",
 			"title":"我的收藏",
-			"path": "/Address"
+			"path": "/Collection"
 		}
 	],
 	order_list:[

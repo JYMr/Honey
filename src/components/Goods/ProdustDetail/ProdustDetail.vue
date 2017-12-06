@@ -2,7 +2,7 @@
 	<div>
 		
 		<!-- 商品大图轮播 开始 -->
-    	<Banner v-bind:seller="Produst_banner_list"></Banner>
+    	<Banner v-bind:seller="Produst_banner_list" v-if="Produst_banner_list"></Banner>
 		<!-- 商品大图轮播 结束 -->
 
 		<!-- 商品信息 开始 -->
@@ -59,7 +59,7 @@
 
 
 	    <footer>
-	        <div class="bar-btn">
+	        <div class="bar-btn" v-on:click="AddCollection">
 	            <div class="like_content like"></div>
 	            <span>收藏</span>
 	        </div>
@@ -112,14 +112,10 @@ export default{
 				}
 			}).then((res)=>{
 				if(res.data.status == 0){
-					/*for(let item of res.data.data.spec){
-						let temp = item;
-						temp.isSpec = 0;
-						item = temp;
-					}*/
-					_self.Produst = res.data.detail;
-					_self.Produst_banner_list.data[0] = res.data.detail.src;
-					console.log(_self.Produst_banner_list.data)
+					_self.Produst = res.data.Detail;
+					var Banner_temp_list = {data: []};
+					Banner_temp_list.data[0] = res.data.Detail.src;
+					_self.Produst_banner_list = Banner_temp_list;
 				}
 			})
 		},
@@ -149,6 +145,30 @@ export default{
 				}
 				this.Produst.spec[key].isSpec = temp;
 			}
+		},
+		AddCollection(){
+			if(!this.$token){
+				this.$router.push({
+					path: '/Login'
+				})
+				return;
+			}
+			this.$axios.request({
+				url: this.$url + 'ApiImplements.htm',
+				methods: 'get',
+				params:{
+					method : 'setCollection',
+                    token: this.$token,
+                    gid : this.Produst.id
+				}
+			}).then((res)=>{
+				if(res.data.status == 0){
+					this.$Toast.show({
+						title: '收藏成功',
+						type: 1
+					})
+				}
+			})
 		}
 	},
 	components:{

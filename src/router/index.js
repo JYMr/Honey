@@ -20,6 +20,7 @@ const ForgetPassword = () => import('@/components/Login/ForgetPassword/ForgetPas
 const ForgetPasswordInput = () => import('@/components/Login/ForgetPasswordInput/ForgetPasswordInput')
 
 const Personal = () => import('@/components/Personal/Personal/Personal')
+const Collection = () => import('@/components/Personal/Collection/Collection')
 
 const Order = () => import('@/components/Order/Order/Order')
 const ConfirmOrder = () => import('@/components/Order/ConfirmOrder/ConfirmOrder')
@@ -132,6 +133,17 @@ const PersonalPath = [
 		meta: {
 			title: '',
 			LoginAuth: true
+		}
+	},
+	{
+		path: '/Collection',
+		components:{
+			content: Collection
+		},
+		meta: {
+			title: '我的收藏',
+			LoginAuth: true,
+			backgroundColor: '#FFF'
 		}
 	}
 ]
