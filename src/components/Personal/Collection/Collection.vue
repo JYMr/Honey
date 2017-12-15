@@ -2,7 +2,7 @@
 	
 	<div class="container">
 		
-		<div class="collect-container footerNav">
+		<div class="collect-container footerNav" v-if="CollectionList.length != 0">
 
 			<div class="collect clearfix" v-for="(item,index) in CollectionList">
 				<div class="checkgroup">
@@ -18,7 +18,12 @@
 
 		</div>
 
-		<div class="select-footer">
+		<div class="collect-empty" v-if="CollectionList.length == 0">
+			<img src="/static/images/collection_empty.png">
+			<span>你的收藏夹空空的耶</span>
+		</div>
+
+		<div class="select-footer" v-if="CollectionList.length != 0">
 			<div class="checkgroup">
 				<input type="checkbox" name="select" id="select-all" v-model="CheckedAll">
 				<label for="select-all"></label>

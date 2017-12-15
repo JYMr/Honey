@@ -26,6 +26,8 @@ const Order = () => import('@/components/Order/Order/Order')
 const ConfirmOrder = () => import('@/components/Order/ConfirmOrder/ConfirmOrder')
 const Evaluate = () => import('@/components/Order/Evaluate/Evaluate')
 
+const PersonalSettings = () => import('@/components/Settings/PersonalSettings/PersonalSettings')
+
 Vue.use(Router)
 /*重定向*/
 const routes = [
@@ -75,7 +77,8 @@ const NavBottom = [
 		},
 		meta: {
 			title: '我的',
-			LoginAuth: true
+			LoginAuth: true,
+			backgroundColor: '#f2f2f2'
 		}
 	}
 ]
@@ -101,7 +104,11 @@ const LoginPath = [
 		path : '/Login',
 		components:{
 			content: Login
-		}		
+		},
+		meta:{
+			title: '登录',
+			backgroundColor: '#FFF'
+		}	
 	},
 	{
 		path: '/Register',
@@ -206,13 +213,28 @@ const OrderPath = [
 	}
 ]
 
+/*设置相关*/
+const SettingsPath = [
+	{
+		path: '/PersonalSettings',
+		components:{
+			content: PersonalSettings
+		},
+		meta:{
+			title: '资料编辑',
+			LoginAuth: true
+		}
+	}
+]
+
 const routesAll = routes.concat(
 	NavBottom,
 	GoodsPath,
 	AddressPath,
 	LoginPath,
 	PersonalPath,
-	OrderPath
+	OrderPath,
+	SettingsPath
 );
 
 const router = new Router({
@@ -257,11 +279,11 @@ router.beforeEach((to, from, next) => {
 
 	if(localCode){
 		//有登录码
-		if(!LoginAuth && login_token == null){
+		if(!LoginAuth && login_token == ''){
 			//无需用户验证
 			AutoLogin();
 			next();
-		}else if(LoginAuth && login_token == null){
+		}else if(LoginAuth && login_token == ''){
 			//需用户验证
 			AutoLogin((res)=>{
 				if(res == 0){
@@ -277,9 +299,8 @@ router.beforeEach((to, from, next) => {
 		}else{
 			next();
 		}
-		console.log('!')
 	}else if(!localCode){
-		if(login_token == null && LoginAuth){
+		if(login_token == '' && LoginAuth){
 			next({
 				path : '/login'
 			})

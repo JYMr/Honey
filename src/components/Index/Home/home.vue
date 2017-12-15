@@ -21,6 +21,10 @@
 	            <div class="home-head-name">
 	                Eminem
 	            </div>
+	            <i class="anim1"></i>
+	            <i class="anim2"></i>
+	            <i class="anim3"></i>
+	            <i class="anim4"></i>
 	        </div>
 
 	    </div>
@@ -45,14 +49,14 @@
 
 	    <!-- 个人中心 订单栏 开始 -->
 	    <div class="home-order">
-	        <div class="home-order-title">
+	        <router-link tag="div" class="home-order-title" :to="{ path: '/Order'}">
 	            <img src="./asset/home_order.png" alt="" class="head-icon">
 	            全部订单
 
 	            <span class="fr">
 	                <img src="./asset/right_arrow.png">
 	            </span>
-	        </div>
+	        </router-link>
 	        <div class="home-order-list clearfix">
 	            <router-link tag="div" class="home-order-list-item" v-for="(item,index) of home_order_list" :to="index == 4 ? {path: 'Cart'} :{ path: 'Order', query: { status: index }}" :key="'Order_'+index">
 	                <img :src="item.src" :alt="item.title">

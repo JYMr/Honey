@@ -1,13 +1,17 @@
-body{background-color: #f2f2f2;}
 /*个人中心*/
 .home{margin-top: 1.375rem;}
 
 .home-head{width: 100%;height: 4.688rem;background-color: #eeb40c;}
-	.home-head-icon{position: relative;width: 3.516rem;height: 3.516rem;margin: 0 auto;background: url(./asset/pic-bg.png) center center no-repeat;background-size: 3.516rem 3.516rem;}
-	.home-head-icon .home-head-img{position: absolute;top: 0;right: 0;bottom: 0;left: 0;overflow: hidden;width: 2.453rem;height: 2.453rem;margin: auto;}
+	.home-head-icon{position: relative;width: 3.516rem;height: 3.516rem;margin: 0 auto;/* background: url(./asset/pic-bg.png) center center no-repeat;background-size: 3.516rem 3.516rem; */}	
+	.home-head-icon .home-head-img{position: absolute;top: 0;right: 0;bottom: 0;left: 0;overflow: hidden;width: 2.453rem;height: 2.453rem;margin: auto;z-index: 1;}
 	.home-head-icon .home-head-img img{width: 100%;height: 100%;border-radius: 50%;}
-	.home-head-editbtn{position: absolute;right: 0;bottom: 0;width: .672rem;height: .672rem;border-radius: 50%;background: url(./asset/icon_edit.png) center center no-repeat;background-color: #eeb40c;background-size: 80% 80%;}
+	.home-head-editbtn{position: absolute;right: 0;bottom: 0;width: .672rem;height: .672rem;border-radius: 50%;background: url(./asset/icon_edit.png) center center no-repeat;background-color: #eeb40c;background-size: 80% 80%;z-index: 2;}
 	.home-head-name{font-size: .438rem;padding-top: 3.75rem;text-align: center;color: #fff;}
+
+	.home-head-icon i{display: block;width: 2.3rem;height: 2.3rem;border: 0.027rem solid #FFF;border-radius: 50%;position: absolute;top: 0;bottom: 0;right: 0;left: 0;margin:auto;animation: 2s iconripple infinite;}
+	.home-head-icon .anim2{animation-delay:.5s;}
+	.home-head-icon .anim3{animation-delay:1s;}
+	.home-head-icon .anim4{animation-delay:1.5s;}
 
 .home-bar{text-align: center;overflow: hidden;}
 	.home-bar-item{padding: .375rem 0;background-color: #FFF;float: left;width: 50%;}
@@ -28,3 +32,8 @@ body{background-color: #f2f2f2;}
 	.home-item-content .home-item{text-align: center;color: #333;width: 33.33%;float: left;padding: 0.625rem 0;border-right: 0.03125rem solid #e5e5e5;border-bottom: 0.03125rem solid #e5e5e5;margin-right: -0.03125rem;}
 	.home-item-content .home-item span{display: block;font-size: 0.375rem;}
 	.home-item-content .home-item img{height: 0.59375rem;margin-bottom: 0.28125rem;}
+
+@keyframes iconripple{
+	to{width: 3.5rem;height: 3.5rem;opacity: 0;}
+	from{width: 2.3rem;height: 2.3rem;}
+}

@@ -8,7 +8,7 @@
 	    <div class="order-content">
 		     <!-- 全部订单 开始 -->
 	        <div class="order-content-item active" id="scroll_list">
-	            <div class="order-list">
+	            <div class="order-list" v-if="OrderList.length != 0">
 	                <ul>
 	                    <li v-for="item of OrderList">
 	                        <div class="order-title">
@@ -66,6 +66,10 @@
 	                    没有更多内容了
 	                </div>
 	            </div>
+	            <div class="order-empty" v-if="OrderList.length == 0">
+					<img src="/static/images/collection_empty.png">
+					<span>暂时木有订单</span>
+	            </div>
 	        </div>
 	    </div>
 	</div>
@@ -100,6 +104,11 @@ export default{
 
 			this.Loadstatus = 1;
 
+			this.$Toast.show({
+				type: 5,
+				time: 0
+			});
+
 			this.$axios.request({
 				url: this.$url + 'ApiImplements.htm',
 				methods: 'get',
@@ -123,6 +132,7 @@ export default{
 						this.Loadstatus = 0;
 					}
 					this.OrderList = this.OrderList.concat(res.data.OrderList);
+					this.$Toast.close();
 					_callback;
 				}
 			})

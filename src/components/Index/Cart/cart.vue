@@ -110,7 +110,7 @@ export default{
 					}
 				}
 				this.isAllChecked = (this.Cart_list.length == chooseNum);
-				this.Cart_total.price = Temp_Total_price;
+				this.Cart_total.price = Temp_Total_price.toFixed(2);
 				this.Cart_total.number = Temp_Total_number;
 				//this.Cart_total.express_price = Temp_Total_expressPrice;
 			},

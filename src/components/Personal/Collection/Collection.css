@@ -6,6 +6,10 @@
 .collect .collect-information h4{font-weight: normal;}
 .collect p span{ color: #e5383a; }
 
+.collect-empty{width: 100%;text-align: center;height: 4rem;position: fixed;top: 0;bottom: 3rem;width: 100%;margin:auto;}
+.collect-empty img{height: 3.2rem;}
+.collect-empty span{display: block;font-size: 0.373rem;color:#666;padding: 0.267rem 0;}
+
 .select-footer{ position: fixed; bottom: 0; width: 10.0rem; height: 1.34375rem; padding: 0 0.375rem; background: #fcfcfc; border-top: 0.03125rem solid #d5d5d5; box-sizing: border-box; z-index: 999;}
 .select-footer .checkgroup{ float: left; height: 1.34375rem; }
 .select-footer .btn-delete{ position: absolute; top: 0; right: 0.375rem; bottom: 0; width: 1.84375rem; height: 0.859375rem; margin: auto; color: #fff; font-size: 0.375rem; text-align: center; line-height: 0.859375rem; background: #eeb40c; border-radius: 0.15625rem; }

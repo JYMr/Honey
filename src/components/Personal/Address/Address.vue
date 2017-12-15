@@ -52,7 +52,7 @@ export default{
 				time: 0
 			})
 			this.$axios.request({
-				url: this.$url + '/ApiImplements.htm',
+				url: this.$url + 'ApiImplements.htm',
 				methods: 'get',
 				params:{
 					token: this.$token,
@@ -84,11 +84,11 @@ export default{
 							type: 5,
 							time: 0
 						})
-						this.$axios.request({
+						_this.$axios.request({
 							url: _this.$url + '/ApiImplements.htm',
 							methods: 'get',
 							params:{
-								userid : _this.$token,
+								token : _this.$token,
 								method: 'DelUserAddress',
 								aid : id
 							}
