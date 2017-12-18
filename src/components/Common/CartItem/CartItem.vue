@@ -1,7 +1,7 @@
 <template>
     <div class="cart-item">
         <div class="checkgroup">
-            <input type="checkbox" :id="'checkbox-'+index" v-model="checkboxStatus">
+            <input type="checkbox" :id="'checkbox-'+index" v-model="ischoose">
             <label :for="'checkbox-'+index"></label>
         </div>
         <div class="produst-img"><img :src="DefaultImg" alt=""></div>
@@ -32,12 +32,12 @@ import axios from 'axios'
 	export default{
 		props:{
 			seller: Object,
+            ischoose: Boolean,
             index: Number
 		},
 		data(){
             return {
                 total:parseInt(this.seller.total),//选择商品购买的数量
-                checkboxStatus: (this.seller.ischoose == 0 ? false : true) || false,
                 DefaultImg : 'static/images/default_img.png',
                 DelImg: 'static/images/trash.png'
             }
@@ -71,7 +71,7 @@ import axios from 'axios'
                     methods: 'get',
                     params:{
                         method: 'setChoose',
-                        userid: 'orwX1sr2tZmfLiA9B2W5EP0hippE',
+                        token: this.$token,
                         cid: _self.seller.id,
                         ischoose : _self.checkboxStatus == false ? '0' : '1'
                     }
@@ -102,9 +102,6 @@ import axios from 'axios'
                         this.PropsNew();
                     }
                 })
-            },
-            seller(val,oldval){
-                this.checkboxStatus = (val.ischoose == 0 ? false : true) || false;
             }
         }
 	}

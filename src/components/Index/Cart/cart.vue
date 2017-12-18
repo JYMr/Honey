@@ -1,6 +1,6 @@
 <template>
 	 <div class="cart-list">
-	 	<CartItem v-for="(item,index) in Cart_list" :key="index" :seller.sync="item" :index="index" v-on:DelItem="DelItemFunc(index)"></CartItem>
+	 	<CartItem v-for="(item,index) in Cart_list" :key="index" :seller.sync="item" :ischoose.sync="item.ischoose"  :index="index" v-on:DelItem="DelItemFunc(index)"></CartItem>
 
 	 	<!-- 购物车结算栏 开始 -->
 	    <div class="cart-bar">
@@ -59,7 +59,12 @@ export default{
 			}).then((res)=>{
 				if(res.data.status == 0){
 					this.$Toast.close();
-					this.Cart_list = this.Cart_list.concat(res.data.CartList);
+					let temp_List = res.data.CartList;
+					//Handle isChoose
+					for(let item of temp_List){
+						item.ischoose = item.ischoose == 0? false : true
+					}
+					this.Cart_list = this.Cart_list.concat(temp_List);
 				}
 			})
 		},
@@ -116,9 +121,9 @@ export default{
 			},
       		deep: true
 		},
-		isAllChecked:function(val,oldVal){
+		isAllChecked:function(newVal,oldVal){
 			for(var item of this.Cart_list){
-				item.ischoose = val;
+				item.ischoose = newVal;
 			}
 		}
 	},
