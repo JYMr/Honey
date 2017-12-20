@@ -55,7 +55,8 @@ const NavBottom = [
 			foot:Foot
 		},
 		meta: {
-			title: '首页'
+			title: '首页',
+			backgroundColor: '#f2f2f2'
 		}
 	},
 	{
@@ -149,8 +150,7 @@ const PersonalPath = [
 		},
 		meta: {
 			title: '我的收藏',
-			LoginAuth: true,
-			backgroundColor: '#FFF'
+			LoginAuth: true
 		}
 	}
 ]
@@ -294,6 +294,7 @@ router.beforeEach((to, from, next) => {
 					next({
 						path : '/login'
 					})
+					return;
 				}
 			})
 		}else{
@@ -304,6 +305,7 @@ router.beforeEach((to, from, next) => {
 			next({
 				path : '/login'
 			})
+			return;
 		}else{
 			next();
 		}
@@ -314,11 +316,14 @@ router.beforeEach((to, from, next) => {
 	/*处理Title*/
 	document.title = to.meta.title == undefined ? 'Honey' : to.meta.title 
 
+	const defaultBackground = '#FFF';
+
+	console.log(to.meta.backgroundColor)
 	/*处理Meta 背景设置*/
 	if(to.meta.backgroundColor) {
 		document.getElementsByTagName('body')[0].style.background = to.meta.backgroundColor
 	}else{
-		document.getElementsByTagName('body')[0].style.background = '';
+		document.getElementsByTagName('body')[0].style.background = defaultBackground;
 	}
 
 })

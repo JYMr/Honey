@@ -19,8 +19,15 @@ const instance = axios.create();
 instance.interceptors.response.use(function (response) {
 	//Token 非法时，重新登录
 	if(response.data.status == -2){
+
 		//尝试关闭Toast
 		Toast.close();
+		
+		Toast.show({
+			type: 1,
+			title: '登录过期，请重新登录',
+			time: 1500
+		});
 
 		Vue.prototype.$token = '';
 		//跳转 /Login

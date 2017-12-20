@@ -41,7 +41,8 @@
 		data(){
 			return {
 				CheckedAll: false,
-				CollectionList : []
+				CollectionList : [],
+				flag: true
 			}
 		},
 		mounted(){
@@ -62,6 +63,9 @@
 					}
 				}).then((res)=>{
 					if(res.data.status == 0){
+						for(let item of res.data.list){
+							item.checked = false;
+						}
 						this.CollectionList = res.data.list;
 						this.$Toast.close();
 					}
@@ -114,9 +118,26 @@
 		},
 		watch:{
 			CheckedAll(newVal,oldVal){
+				if(!this.flag) return;
 				let temp = newVal;
 				for(let item of this.CollectionList){
 					item.checked = temp;
+				}
+			},
+			CollectionList: {
+				deep: true,
+				handler: function(newVal,oldVal){
+					this.flag = false;
+					var isChecked = 0;
+					for(let item of newVal){
+						if(item.checked)
+							isChecked++;
+					}
+					this.CheckedAll = isChecked == newVal.length;
+
+					setTimeout(()=>{
+						this.flag = true;
+					},0)
 				}
 			}
 		}
