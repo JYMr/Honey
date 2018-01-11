@@ -198,7 +198,8 @@ const OrderPath = [
 		},
 		meta: {
 			title: '',
-			LoginAuth: true
+			LoginAuth: true,
+			backgroundColor: "#F5F5F5"
 		}
 	},
 	{
@@ -318,7 +319,6 @@ router.beforeEach((to, from, next) => {
 
 	const defaultBackground = '#FFF';
 
-	console.log(to.meta.backgroundColor)
 	/*处理Meta 背景设置*/
 	if(to.meta.backgroundColor) {
 		document.getElementsByTagName('body')[0].style.background = to.meta.backgroundColor

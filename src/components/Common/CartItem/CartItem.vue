@@ -64,7 +64,7 @@ import axios from 'axios'
             }
         },
         watch:{
-            checkboxStatus(){//监听是否选择该商品
+            ischoose(){//监听是否选择该商品
                 var _self = this;
                 this.$axios.request({
                     url: this.$url + 'ApiImplements.htm',
@@ -73,7 +73,7 @@ import axios from 'axios'
                         method: 'setChoose',
                         token: this.$token,
                         cid: _self.seller.id,
-                        ischoose : _self.checkboxStatus == false ? '0' : '1'
+                        ischoose : _self.seller.ischoose == false ? '0' : '1'
                     }
                 }).then((res)=>{
                     if(res.data.status == 0){
@@ -81,7 +81,7 @@ import axios from 'axios'
                         this.PropsNew();
                     }else{
                         console.log('操作失败');
-                       this.checkboxStatus = !checkboxStatus; 
+                       this.ischoose = !ischoose; 
                     }
                 })
             },

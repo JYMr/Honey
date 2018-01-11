@@ -4,7 +4,7 @@
         <div class="order-content-item active" id="scroll_list">
 
 			<div class="add-header">
-				<img src="images/add.png">
+				<img src="static/images/add.png">
 				添加收货地址
 			</div>
 
@@ -14,7 +14,7 @@
                 <ul>
                     <li>
                         <div class="order-title">
-                            <img src="images/order_title_icon.png">
+                            <!-- <img src="images/order_title_icon.png"> -->
                             Darry Ring
                         </div>
                         <ul>

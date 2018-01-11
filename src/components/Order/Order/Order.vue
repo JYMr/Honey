@@ -66,7 +66,7 @@
 	                    没有更多内容了
 	                </div>
 	            </div>
-	            <div class="order-empty" v-if="OrderList.length == 0">
+	            <div class="order-empty" v-if="OrderList.length == 0 && !isNeedLoad">
 					<img src="/static/images/collection_empty.png">
 					<span>暂时木有订单</span>
 	            </div>
@@ -124,8 +124,6 @@ export default{
 					if(res.data.OrderList.length == 0){
 						this.Loadstatus = 2;
 						this.isNeedLoad = false;
-						_callback;
-						return;
 					}else if(res.data.OrderList.length < this.PageSize){
 						this.Loadstatus = 2;
 					}else{
@@ -134,6 +132,7 @@ export default{
 					this.OrderList = this.OrderList.concat(res.data.OrderList);
 					this.$Toast.close();
 					_callback;
+					return;
 				}
 			})
 		},

@@ -14,7 +14,7 @@
 	            <span v-if="Cart_total.express_price != 0">(含运费:￥{{Cart_total.express_price}})</span>
 	        </div>
 	    
-	        <div class="cart-bar-btn">
+	        <div class="cart-bar-btn" @click="ConfirmOrder">
 	            结算(<span>{{Cart_total.number}}</span>)
 	        </div>
 	    </div>
@@ -93,6 +93,11 @@ export default{
 					}
 				}
 			});
+		},
+		ConfirmOrder(){
+			this.$router.push({
+				path: '/ConfirmOrder'
+			})
 		}
 	},watch:{
 		Cart_list:{

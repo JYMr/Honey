@@ -96,7 +96,7 @@ export default{
 			if(this.ValiData()){
 				this.disable = true;
 				this.loginVal = '登录中...'
-				/*--调用登录接口--*/
+				//--调用登录接口--
 
 				this.$axios.request({
 					url : this.$url + '/Login.htm',
