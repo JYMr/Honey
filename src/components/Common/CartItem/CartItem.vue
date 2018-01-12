@@ -1,7 +1,7 @@
 <template>
     <div class="cart-item">
         <div class="checkgroup">
-            <input type="checkbox" :id="'checkbox-'+index" v-model="ischoose">
+            <input type="checkbox" :id="'checkbox-'+index" v-model="checkboxStatus">
             <label :for="'checkbox-'+index"></label>
         </div>
         <div class="produst-img"><img :src="DefaultImg" alt=""></div>
@@ -37,6 +37,7 @@ import axios from 'axios'
 		},
 		data(){
             return {
+                checkboxStatus: this.ischoose || false,
                 total:parseInt(this.seller.total),//选择商品购买的数量
                 DefaultImg : 'static/images/default_img.png',
                 DelImg: 'static/images/trash.png'
@@ -64,7 +65,7 @@ import axios from 'axios'
             }
         },
         watch:{
-            ischoose(){//监听是否选择该商品
+            checkboxStatus(newVal, oldVal){//监听是否选择该商品
                 var _self = this;
                 this.$axios.request({
                     url: this.$url + 'ApiImplements.htm',
@@ -73,15 +74,15 @@ import axios from 'axios'
                         method: 'setChoose',
                         token: this.$token,
                         cid: _self.seller.id,
-                        ischoose : _self.seller.ischoose == false ? '0' : '1'
+                        ischoose : newVal ? "1" : "0"
                     }
                 }).then((res)=>{
                     if(res.data.status == 0){
                         //操作成功
+                        this.ischoose = this.checkboxStatus;
                         this.PropsNew();
                     }else{
                         console.log('操作失败');
-                       this.ischoose = !ischoose; 
                     }
                 })
             },

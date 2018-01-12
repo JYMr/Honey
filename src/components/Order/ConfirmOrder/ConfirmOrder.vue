@@ -19,13 +19,13 @@
                         </div>
                         <ul>
                             <!-- 订单商品 开始 -->
-                            <li>
-                                <div class="produst-img"><img src="images/goods.png" alt=""></div>
+                            <li v-for="(item, index) of GoodsList">
+                                <div class="produst-img"><img :src="item.src" alt=""></div>
                                 <div class="produst-data">
-                                    <h4>18K铂金钻石镶嵌情侣对戒</h4>
+                                    <h4>{{item.title}}</h4>
                                     <div class="produst-data-info">
-                                        <span class="price">￥33098.00</span>
-                                        <span class="num">x1</span>
+                                        <span class="num">x{{item.total}}</span>
+                                        <span class="price">￥{{item.marketprice}}</span>
                                     </div>
                                 </div>
                             </li>
@@ -95,5 +95,42 @@
         </div>
     </div>
 </template>
+
+<script type="text/javascript">
+	
+export default{
+	data(){
+		return {
+			Address:{},
+			GoodsList:[]
+		}
+	},
+	mounted(){
+		this.GetConfirmOrderData();
+	},
+	methods:{
+		GetConfirmOrderData(){
+			this.$Toast.show({
+				type: 5,
+				time: 0
+			});
+			this.$axios.request({
+				url: this.$url + 'ApiImplements.htm',
+				methods: 'get',
+				params:{
+					token: this.$token,
+					method: 'getConfirmData'
+				}
+			}).then((res)=>{
+				if(res.data.status == 0){
+					this.GoodsList = res.data.data.CartList;
+				}
+				this.$Toast.close();
+			});
+		}
+	}
+}
+
+</script>
 
 <style type="text/css" src="./ConfirmOrder.css"></style>
