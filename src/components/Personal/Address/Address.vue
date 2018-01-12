@@ -2,7 +2,7 @@
 	
 	<div class="address-list">
 		
-		<div class="address-list-item" v-for="(item,index) of AddressList">
+		<div class="address-list-item" v-for="(item,index) of AddressList" @click="ChooseAddress(item.id)">
 
 			<div class="address-list-text">
 				<span class="fl">{{item.name}}</span>
@@ -39,10 +39,14 @@ export default{
 	data(){
 		return {
 			AddressList : [],
-			isDefault : ''
+			isDefault : '',
+			ChooseMode: false
 		}
 	},
 	mounted(){
+		if(this.$route.query.c == 1){
+			this.ChooseMode = true;
+		}
 		this.GetAddressList();
 	},
 	methods:{
@@ -114,8 +118,9 @@ export default{
 
 					}
 				}
-			})
+			});
 
+			return false;
 		},
 		HandleDefault(newVal,oldVal){
 			if(oldVal == '') return;
@@ -162,7 +167,14 @@ export default{
 				query: {
 					aid : id
 				}
-			})
+			});
+			return false;
+		},
+		ChooseAddress(id){
+			if(this.ChooseMode){
+				sessionStorage.AddressId = id;
+				history.go(-1);
+			}
 		}
 	},
 	watch:{

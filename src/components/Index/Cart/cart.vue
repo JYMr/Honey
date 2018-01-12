@@ -60,10 +60,6 @@ export default{
 				if(res.data.status == 0){
 					this.$Toast.close();
 					let temp_List = res.data.CartList;
-					//Handle isChoose
-					for(let item of temp_List){
-						item.ischoose = item.ischoose == 0? false : true
-					}
 					this.Cart_list = this.Cart_list.concat(temp_List);
 				}
 			})
@@ -104,8 +100,8 @@ export default{
 			/*
 			* 购物车 统计
 			*/
-			handler: function(val,oldVal){
-				let List = val;
+			handler: function(newVal,oldVal){
+				let List = newVal;
 				let chooseNum = 0;
 				let Temp_Total_price = 0;
 				let Temp_Total_number = 0;
@@ -119,6 +115,7 @@ export default{
 						chooseNum++;
 					}
 				}
+				console.log(chooseNum)
 				this.isAllChecked = (this.Cart_list.length == chooseNum);
 				this.Cart_total.price = Temp_Total_price.toFixed(2);
 				this.Cart_total.number = Temp_Total_number;
@@ -128,7 +125,7 @@ export default{
 		},
 		isAllChecked:function(newVal,oldVal){
 			for(var item of this.Cart_list){
-				item.ischoose = newVal;
+				item.ischoose = newVal ? 1 : 0;
 			}
 		}
 	},

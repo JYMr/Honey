@@ -1,12 +1,20 @@
 <template>
 	<div class="order-content">
         <!-- 全部订单 开始 -->
-        <div class="order-content-item active" id="scroll_list">
-
-			<div class="add-header">
+			<router-link tag="div" :to="{path: '/Address', query: {'c':1}}" class="add-header" v-if="Address == undefined">
 				<img src="static/images/add.png">
 				添加收货地址
-			</div>
+			</router-link>
+
+			<router-link tag="div" :to="{path: '/Address', query: {'c':1}}" class="address-content" v-if="Address != undefined">
+				<div>
+					<span class="name">{{Address.name}}</span>
+					<span class="mobile">{{Address.mobile}}</span>
+				</div>
+				<div>
+					<span class="address">{{Address.province}}{{Address.city}}{{Address.area}}{{Address.address}}</span>
+				</div>
+			</router-link>
 
 			<div class="blank-block"></div>
 
@@ -34,12 +42,12 @@
                         <!-- 配送方式，商品共计 -->
                         <div class="star-score clearfix">
                             <span>配送方式</span>
-							<span>运费<em>0</em>元</span>
+							<span v-if="ExpressPrice != 0">运费<em>{{ExpressPrice}}</em>元</span>
                         </div>
 
                          <div class="star-score clearfix">
-                            <span>共1件商品，优惠0.00元 </span>
-							<span>实付:￥33098</span>
+                            <span>共{{Total}}件商品，优惠0.00元 </span>
+							<span>实付:￥{{TotalPrice}}</span>
                         </div>
 
 						<div class="blank-block"></div>
@@ -48,7 +56,7 @@
                 </ul>
             </div>
 
-            <form class="pay-way-container">
+            <div class="pay-way-container">
 				<h3>支付方式</h3>
 				<div class="pay-way clearfix">
 					<div class="radiogroup">
@@ -82,17 +90,14 @@
 						<span>支持储蓄卡信用卡，无需开通网银</span>
 					</label>
 				</div>
+			</div>
 
-				<div class="submit-footer clearfix">
-					<p class="footer-left">
-						共<span>1</span>件，合计：<span>￥30398.00</span>
-					</p>
-					<div class="footer-right">提交订单</div>
-				</div>
-			</form>
-
-
-        </div>
+			<div class="submit-footer clearfix">
+				<p class="footer-left">
+					共<span>{{Total}}</span>件，合计：<span>￥{{TotalPrice}}</span>
+				</p>
+				<div class="footer-right">提交订单</div>
+			</div>
     </div>
 </template>
 
@@ -102,10 +107,18 @@ export default{
 	data(){
 		return {
 			Address:{},
-			GoodsList:[]
+			GoodsList:[],
+			Total: 0,
+			TotalPrice: 0,
+			ExpressPrice: 0,
+			AddressId: undefined
 		}
 	},
 	mounted(){
+		if(sessionStorage.AddressId){
+			this.AddressId = sessionStorage.AddressId;
+			this.GetAddress(this.AddressId);
+		}
 		this.GetConfirmOrderData();
 	},
 	methods:{
@@ -124,8 +137,39 @@ export default{
 			}).then((res)=>{
 				if(res.data.status == 0){
 					this.GoodsList = res.data.data.CartList;
+					this.Total = res.data.data.Total;
+					this.TotalPrice = res.data.data.Price;
+					if(!this.AddressId){
+						this.Address = res.data.data.userAddress;
+					}
 				}
 				this.$Toast.close();
+			}).catch((err)=>{
+				this.$Toast.show({
+					type: 1,
+					title: "获取订单数据失败，请刷新重试",
+					time: 1000
+				});
+			});
+		},
+		GetAddress(id){
+			this.$axios.request({
+				url: this.$url + 'ApiImplements.htm',
+				methods: 'get',
+				params:{
+					token: this.$token,
+					method: 'getUserAddress',
+					aid: id
+				}
+			}).then((res)=>{
+				this.Address = res.data.Address;
+				sessionStorage.clear();
+			}).catch((err)=>{
+				this.$Toast.show({
+					type: 1,
+					title: "获取地址数据失败，请刷新重试",
+					time: 1000
+				});
 			});
 		}
 	}

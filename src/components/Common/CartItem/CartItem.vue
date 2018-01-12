@@ -32,12 +32,12 @@ import axios from 'axios'
 	export default{
 		props:{
 			seller: Object,
-            ischoose: Boolean,
+            ischoose: Number,
             index: Number
 		},
 		data(){
             return {
-                checkboxStatus: this.ischoose || false,
+                checkboxStatus: this.ischoose == 1 ? true : false || false,
                 total:parseInt(this.seller.total),//选择商品购买的数量
                 DefaultImg : 'static/images/default_img.png',
                 DelImg: 'static/images/trash.png'
@@ -56,7 +56,7 @@ import axios from 'axios'
                 //更新父组件数据
                 let NewSeller = this.seller;
                 NewSeller.total = this.total.toString();
-                NewSeller.ischoose = this.checkboxStatus == false ? '0' : '1';
+                NewSeller.ischoose = this.checkboxStatus ? 1 : 0;
                 this.$emit('update:seller', NewSeller);
             },
             DelItem(){
@@ -79,7 +79,6 @@ import axios from 'axios'
                 }).then((res)=>{
                     if(res.data.status == 0){
                         //操作成功
-                        this.ischoose = this.checkboxStatus;
                         this.PropsNew();
                     }else{
                         console.log('操作失败');

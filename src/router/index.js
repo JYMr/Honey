@@ -95,6 +95,10 @@ const GoodsPath = [
 		path: '/ProdustList',
 		components:{
 			content: ProdustList
+		},
+		meta:{
+			title: '商品列表',
+			backgroundColor: '#F5F5F5'
 		}
 	}
 ]
@@ -164,7 +168,8 @@ const AddressPath = [
 		},
 		meta: {
 			title: '',
-			LoginAuth: true
+			LoginAuth: true,
+			backgroundColor: "#F5F5F5"
 		}
 	},
 	{
