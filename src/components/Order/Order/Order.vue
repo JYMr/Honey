@@ -39,11 +39,11 @@
 	                            共1件商品，合计￥{{item.price}}(含运费￥0.00)
 	                        </div>
 	                        <div class="order-btn" v-if="item.status == 0">
-	                            <a href="javascript:;" class="fr btn btn-sm-outline">取消订单</a>
+	                            <a href="javascript:;" class="fr btn btn-sm-outline" @click="CancelOrder(item.orderSn)">取消订单</a>
 	                            <a href="javascript:;" class="fr btn btn-sm">去付款</a>
 	                        </div>
 	                        <div class="order-btn" v-if="item.status == 1">
-	                            <a href="javascript:;" class="fr btn btn-sm-outline">取消订单</a>
+	                            <a href="javascript:;" class="fr btn btn-sm-outline" @click="CancelOrder(item.orderSn)">取消订单</a>
 	                        </div>
 	                        <div class="order-btn" v-if="item.status == 2">
 	                            <a href="javascript:;" class="fr btn btn-sm-outline">确认收货</a>
@@ -136,8 +136,25 @@ export default{
 				}
 			})
 		},
+		CancelOrder(){
+
+			let AjaxCancelOrder = function(){
+				console.log("AjaxCancelOrder");
+			}
+
+			this.$Toast.show({
+				type: 3,
+				title: "您是否确定取消该订单!",
+				callback: (i) => {
+					if(i == 1){
+						AjaxCancelOrder();
+					}
+				}
+			});
+		},
 		ListenScroll(){
-			//监听滚动：触底加载
+			console.log(document.body.scrollTop);
+			//监听滚动：触底加载 
 			let _self = this;
 			if(_self.isNeedLoad){
 				if(document.body.scrollHeight - window.innerHeight <= document.body.scrollTop){

@@ -84,7 +84,7 @@ export default{
 			toasttype: 'loading',
 			title: '',
 			ButtonArray:[],
-			time: -1,
+			time: 0,
 			ToastAnimate:'Fade',
 			MaskAnimate: '',
 			callback: null,
@@ -102,12 +102,12 @@ export default{
 			let type = this.type;
 			if(typeof time != 'number') time = parseInt(time);
 
-			if(time == 0 || (type == 1 && time == 0) || ( type == 5 && time == 0 )) return;
+			if(time === 0 || (type === 1 && time === 0) || ( type === 5 && time === 0 )) return;
 			//Default time
 			time = 1500;
 			setTimeout(()=>{
 				this.CloseToast();
-			},time)
+			},time);
 		},
 		HandleType(){
 			let type = parseInt(this.type);

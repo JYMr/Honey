@@ -45,8 +45,6 @@ textarea{resize: none;}
 /*屏蔽点击a时，产生的背景*/
 a{tap-highlight-color: rgba(0,0,0,0);-webkit-tap-highlight-color: rgba(0,0,0,0);}
 
-body,html,#app{color: #333;height: 100%;}
-
 /*遮罩*/
 .mask{position: fixed;top: 0;bottom: 0;left: 0;right: 0;margin:auto;background-color: rgba(0,0,0,.6);z-index: 99;}
 

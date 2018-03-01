@@ -21,20 +21,19 @@ let Toast = {
 
 		content = new ToastContent({
 			data : option
-		})
+		});
 
 		content.vm = content.$mount();
 		document.body.appendChild(content.vm.$el);
 		content.vm.visible = true;
+	},
+	close:function(){
+		if(!content){
+			console.warn('Toast not Init');
+			return;
+		}
+		content.vm.visible = false;
 	}
-}
-
-Toast.close = function(){
-	if(!content){
-		console.warn('Toast not Init');
-		return;
-	}
-	content.vm.visible = false;
 }
 
 const DestroyNow = (content) => {

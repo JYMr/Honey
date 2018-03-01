@@ -85,7 +85,7 @@ export default{
 			//更改为加载中状态
 			_self.Loadstatus = 1;
 			this.$axios.request({
-				url: this.$url + 'ApiImplements.htm',
+				url: this.$url + 'Api.htm',
 				methods: 'get',
 				params:{
 					no : _self.No,
