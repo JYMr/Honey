@@ -23,6 +23,7 @@ const Personal = () => import('@/components/Personal/Personal/Personal')
 const Collection = () => import('@/components/Personal/Collection/Collection')
 
 const Order = () => import('@/components/Order/Order/Order')
+const OrderDetail = () => import('@/components/Order/OrderDetail/OrderDetail')
 const ConfirmOrder = () => import('@/components/Order/ConfirmOrder/ConfirmOrder')
 const Evaluate = () => import('@/components/Order/Evaluate/Evaluate')
 
@@ -194,6 +195,17 @@ const OrderPath = [
 		meta: {
 			title: '',
 			LoginAuth: true
+		}
+	},
+	{
+		path: '/OrderDetail',
+		components:{
+			content: OrderDetail
+		},
+		meta: {
+			title: '',
+			LoginAuth: true,
+			backgroundColor: "#F5F5F5"
 		}
 	},
 	{

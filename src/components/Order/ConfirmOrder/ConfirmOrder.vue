@@ -128,7 +128,7 @@ export default{
 				time: 0
 			});
 			this.$axios.request({
-				url: this.$url + 'ApiImplements.htm',
+				url: this.$url + 'Api.htm',
 				methods: 'get',
 				params:{
 					token: this.$token,
@@ -154,7 +154,7 @@ export default{
 		},
 		GetAddress(id){
 			this.$axios.request({
-				url: this.$url + 'ApiImplements.htm',
+				url: this.$url + 'Api.htm',
 				methods: 'get',
 				params:{
 					token: this.$token,

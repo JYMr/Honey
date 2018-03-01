@@ -104,7 +104,7 @@ export default{
 			//获取商品详细信息
 			var _self = this;
 			this.$axios.request({
-				url: this.$url + 'ApiImplements.htm',
+				url: this.$url + 'Api.htm',
 				methods: 'get',
 				params:{
 					id : _self.id,
@@ -122,7 +122,7 @@ export default{
 		AddCart(){
 			//加入购物车
 			this.$axios.request({
-				url: this.$url + 'ApiImplements.htm',
+				url: this.$url + 'Api.htm',
 				methods: 'get',
 				params:{
 					method : 'AddCart',
@@ -154,7 +154,7 @@ export default{
 				return;
 			}
 			this.$axios.request({
-				url: this.$url + 'ApiImplements.htm',
+				url: this.$url + 'Api.htm',
 				methods: 'get',
 				params:{
 					method : 'setCollection',

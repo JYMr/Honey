@@ -60,7 +60,7 @@ export default{
 
 			let _self = this;
 			this.$axios.request({
-				url: this.$url + 'ApiImplements.htm',
+				url: this.$url + 'Api.htm',
 				type: 'get',
 				params:{
 					page : _self.Pagesize,

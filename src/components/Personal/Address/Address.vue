@@ -17,8 +17,8 @@
 				</div>
 				<label :for="'checkbox_' + index">设置为默认值</label>
 
-				<a @click="LinkAddressEdit(item.id)" class="btn btn-sm-outline fr">编辑</a>
-				<a @click="DelAddress(item.id)" href="javascript:;" class="btn btn-sm-outline fr">删除</a>
+				<a @click="LinkAddressEdit(item.id, $event)" class="btn btn-sm-outline fr">编辑</a>
+				<a @click="DelAddress(item.id, $event)" href="javascript:;" class="btn btn-sm-outline fr">删除</a>
 			</div>
 
 		</div>
@@ -56,7 +56,7 @@ export default{
 				time: 0
 			})
 			this.$axios.request({
-				url: this.$url + 'ApiImplements.htm',
+				url: this.$url + 'Api.htm',
 				methods: 'get',
 				params:{
 					token: this.$token,
@@ -73,10 +73,11 @@ export default{
 				}
 			})
 		},
-		DelAddress(id){
+		DelAddress(id, event){
+
 			//删除地址
 			var _this = this;
-
+			
 			this.$Toast.show({
 				type: 3,
 				time: 0,
@@ -89,7 +90,7 @@ export default{
 							time: 0
 						})
 						_this.$axios.request({
-							url: _this.$url + '/ApiImplements.htm',
+							url: _this.$url + '/Api.htm',
 							methods: 'get',
 							params:{
 								token : _this.$token,
@@ -119,7 +120,7 @@ export default{
 					}
 				}
 			});
-
+			event.stopPropagation();
 			return false;
 		},
 		HandleDefault(newVal,oldVal){
@@ -134,7 +135,7 @@ export default{
 			})
 
 			this.$axios.request({
-				url: this.$url + '/ApiImplements.htm',
+				url: this.$url + '/Api.htm',
 				methods: 'get',
 				params:{
 					token: this.$token,
@@ -161,13 +162,14 @@ export default{
 				})
 			})
 		},
-		LinkAddressEdit(id){
+		LinkAddressEdit(id, event){
 			this.$router.replace({
 				path: '/AddressEdit',
 				query: {
 					aid : id
 				}
 			});
+			event.stopPropagation();
 			return false;
 		},
 		ChooseAddress(id){

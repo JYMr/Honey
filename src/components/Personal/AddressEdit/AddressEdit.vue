@@ -113,7 +113,7 @@ export default{
 			})
 
 			this.$axios.request({
-				url: this.$url + 'ApiImplements.htm',
+				url: this.$url + 'Api.htm',
 				params:{
 					token: this.$token,
 					method: 'getUserAddress',
@@ -147,7 +147,7 @@ export default{
 				time : 0
 			})
 			this.$axios.request({
-				url : this.$url + 'ApiImplements.htm',
+				url : this.$url + 'Api.htm',
 				params:{
 					token: this.$token,
 					method: this.mode == 0 ? 'InsUserAddress' : 'UpdateUserAddress',

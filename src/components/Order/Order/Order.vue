@@ -10,7 +10,7 @@
 	        <div class="order-content-item active" id="scroll_list">
 	            <div class="order-list" v-if="OrderList.length != 0">
 	                <ul>
-	                    <li v-for="item of OrderList">
+	                    <li v-for="item of OrderList" @click="LinkOrderDetail(item.orderSn)">
 	                        <div class="order-title">
 	                            {{item.orderSn}}
 	                            <span class="order-action" v-if="item.status == -1">已取消</span>
@@ -110,7 +110,7 @@ export default{
 			});
 
 			this.$axios.request({
-				url: this.$url + 'ApiImplements.htm',
+				url: this.$url + 'Api.htm',
 				methods: 'get',
 				params:{
 					token: this.$token,
@@ -154,6 +154,14 @@ export default{
 				path: '/order',
 				query: {
 					status : this.OrderStatus[index].status
+				}
+			})
+		},
+		LinkOrderDetail(sn){
+			this.$router.push({
+				path: "/OrderDetail",
+				query:{
+					ordersn: sn
 				}
 			})
 		}

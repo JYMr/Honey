@@ -50,7 +50,7 @@ export default{
 			})
 			//获取购物车数据
 			this.$axios.request({
-				url: this.$url + 'ApiImplements.htm',
+				url: this.$url + 'Api.htm',
 				mothods: 'get',
 				params:{
 					method: 'getCartList',
@@ -72,7 +72,7 @@ export default{
 				callback: (index)=>{
 					if(index == 1){
 						this.$axios.request({
-							url: this.$url + 'ApiImplements.htm',
+							url: this.$url + 'Api.htm',
 							methods: 'get',
 							params:{
 								method: 'DelCart',

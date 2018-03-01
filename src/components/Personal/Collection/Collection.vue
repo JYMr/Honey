@@ -55,7 +55,7 @@
 					time: 0
 				})
 				this.$axios.request({
-					url: this.$url + 'ApiImplements.htm',
+					url: this.$url + 'Api.htm',
 					type: 'get',
 					params:{
 						method: 'getCollection',
@@ -95,7 +95,7 @@
 						//确认
 						if(res == 1){
 							this.$axios.request({
-								url: this.$url + 'ApiImplements.htm',
+								url: this.$url + 'Api.htm',
 								type: 'get',
 								params:{
 									method: 'delCollection',
