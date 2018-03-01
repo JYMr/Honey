@@ -23,12 +23,32 @@ import OrderProductItem from '@/components/Order/OrderProductItem/OrderProductIt
 export default{
 	data(){
 		return {
-
+			OrderDetail: {}
 		}
 	},
 	mounted(){
+		this.GetOrderDetail();
 	},
 	methods:{
+		GetOrderDetail(){
+			this.$Toast.show({
+				type: 5,
+				time: 0
+			});
+
+			this.$axios.request({
+				url: this.$url + "/Api.htm",
+				methods: 'get',
+				params:{
+					token: this.$token,
+					method: 'getOrderDetail',
+					ordersn: this.$route.query.ordersn,
+				}
+			}).then((res)=>{
+				console.log(res)
+				this.$Toast.close();
+			})
+		}
 	},
 	component:{
 		OrderProductItem
