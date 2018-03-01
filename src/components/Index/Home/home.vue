@@ -19,7 +19,7 @@
 	                <img src="./asset/pic.png" alt="">
 	            </div>
 	            <div class="home-head-name">
-	                Eminem
+	                {{nikeName}}
 	            </div>
 	            <i class="anim1"></i>
 	            <i class="anim2"></i>
@@ -85,8 +85,31 @@ import Home_data from './home_list.js'
 export default{
 	data(){
 		return {
+			nikeName: null,
 			home_item_list : Home_data.list_item,
 			home_order_list : Home_data.order_list
+		}
+	},
+	mounted(){
+		this.GetHomeData();
+	},
+	methods:{
+		GetHomeData(){
+			this.$Toast.show({
+				type: 5
+			});
+
+			this.$axios.request({
+				url: this.$url + 'Api.htm',
+				methods: 'get',
+				params:{
+					token: this.$token,
+					method: 'getMember'
+				}
+			}).then((res)=>{
+				this.nikeName = res.data.data.member.nikeName;
+				this.$Toast.close();
+			});
 		}
 	}
 }

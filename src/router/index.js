@@ -194,7 +194,8 @@ const OrderPath = [
 		},
 		meta: {
 			title: '',
-			LoginAuth: true
+			LoginAuth: true,
+			backgroundColor: "#F5F5F5"
 		}
 	},
 	{
@@ -203,7 +204,7 @@ const OrderPath = [
 			content: OrderDetail
 		},
 		meta: {
-			title: '',
+			title: '订单详情',
 			LoginAuth: true,
 			backgroundColor: "#F5F5F5"
 		}

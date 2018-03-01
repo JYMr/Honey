@@ -21,20 +21,11 @@
 	                            <span class="order-action" v-if="item.status == -6">已退款</span>
 	                            <span class="order-action" v-if="item.status == -2">退款中</span>
 	                        </div>
-	                        <ul>
-	                            <!-- 订单商品 开始 -->
-	                            <li v-for="produstitem of item.goodsList">
-	                                <div class="produst-img"><img :src="produstitem.src" alt=""></div>
-	                                <div class="produst-data">
-	                                    <h4>{{produstitem.title}}</h4>
-	                                    <div class="produst-data-info">
-	                                        <span class="price">￥{{produstitem.marketprice}}</span>
-	                                        <span class="num">x1</span>
-	                                    </div>
-	                                </div>
-	                            </li>
-	                            <!-- 订单商品 结束 -->
-	                        </ul>
+	                        <!-- 订单商品 开始 -->
+	                        <div class="OrderProductList">
+	                        	<OrderProductItem  v-for="(item, index) of item.goodsList" :key="index" :seller="item"></OrderProductItem>
+	                        </div>
+                            <!-- 订单商品 结束 -->
 	                        <div class="order-total">
 	                            共1件商品，合计￥{{item.price}}(含运费￥0.00)
 	                        </div>
@@ -77,7 +68,7 @@
 
 <script type="text/javascript">
 
-import axios from 'axios'
+import OrderProductItem from '@/components/Order/OrderProductItem/OrderProductItem'
 	
 export default{
 	data(){
@@ -175,6 +166,9 @@ export default{
 	},
 	beforeDestroy(){
 		window.removeEventListener('scroll',this.ListenScroll);
+	},
+	components:{
+		OrderProductItem
 	}
 }
 

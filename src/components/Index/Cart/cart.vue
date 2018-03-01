@@ -91,6 +91,21 @@ export default{
 			});
 		},
 		ConfirmOrder(){
+			let CartList = this.Cart_list;
+			let chooseNum = 0;
+			for(var item of CartList){
+				if(item.ischoose == 1){
+					//统计选中商品
+					chooseNum++;
+				}
+			}
+			if(chooseNum == 0){
+				this.$Toast.show({
+					title: "请选择需要结算的商品",
+					time: 1500
+				});
+				return;
+			}
 			this.$router.push({
 				path: '/ConfirmOrder'
 			})

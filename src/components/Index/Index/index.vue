@@ -110,6 +110,7 @@ export default{
 			});
 		},
 		ListenScroll(){
+			console.log(document.body.scrollTop)
 			//监听滚动：触底加载
 			let _self = this;
 			if(_self.isNeedLoad){
