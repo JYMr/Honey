@@ -1,2 +1,4 @@
 .orderStatus{background-color: #FFF;line-height: 0.733rem;font-size: 0.427rem;color: #333;padding: .267rem;}
 .orderStatus span{display: block;}
+
+.orderProduct{background-color: #FFF;margin-top: 0.267rem;padding: 0.267rem;}

@@ -2,14 +2,21 @@
 	<div class="orderDetail">
 		
 		<div class="orderStatus">
-			<span>订单编号：DD20160806</span>
-			<span>订单状态：<i>派送中</i></span>
+			<span>订单编号：{{OrderDetail.orderSn}}</span>
+			<span>订单状态：<i v-if="OrderDetail.status == -1">已取消</i>
+                            <i v-if="OrderDetail.status == 0">待付款</i>
+                            <i v-if="OrderDetail.status == 1">待发货</i>
+                            <i v-if="OrderDetail.status == 2">待收货</i>
+                            <i v-if="OrderDetail.status == 3">交易成功</i>
+                            <i v-if="OrderDetail.status == -6">已退款</i>
+                            <i v-if="OrderDetail.status == -2">退款中</i>
+            </span>
 		</div>
 
 		<div class="orderProduct">
 			<div class="OrderProductList">
 	            <!-- 订单商品 开始 -->
-	            <!-- <OrderProductItem :seller=></OrderProductItem> -->
+	            <OrderProductItem v-for="item of OrderDetail.goodsList" :seller="item"></OrderProductItem>
 	            <!-- 订单商品 结束 -->
 	        </div>
 		</div>
@@ -46,11 +53,12 @@ export default{
 				}
 			}).then((res)=>{
 				console.log(res)
+				this.OrderDetail = res.data.OrderDetail;
 				this.$Toast.close();
 			})
 		}
 	},
-	component:{
+	components:{
 		OrderProductItem
 	}
 }
