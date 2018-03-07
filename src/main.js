@@ -4,6 +4,8 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 
+import Global from './global.js'
+
 import axios from 'axios'
 import http_url from './http/http_conf'
 
@@ -30,6 +32,12 @@ instance.interceptors.response.use(function (response) {
 		});
 
 		Vue.prototype.$token = '';
+		//记录当前链接
+		if(window.location.hash === ''){
+			Global.LAST_URL = window.location.pathname + window.location.search;
+		}else{
+			Global.LAST_URL = window.location.hash;
+		}
 		//跳转 /Login
 		router.push({
 			path: '/Login'
@@ -48,7 +56,8 @@ instance.interceptors.response.use(function (response) {
 	return Promise.reject(error);
 });
 
-
+//注入全局Global
+Vue.prototype.$Global = Global;
 //注入Http配置
 Vue.prototype.$url = http_url;
 //Dev UserId

@@ -298,6 +298,7 @@ router.beforeEach((to, from, next) => {
 
 	if(localCode){
 		//有登录码
+		console.log(login_token)
 		if(!LoginAuth && login_token == ''){
 			//无需用户验证
 			AutoLogin();
@@ -310,6 +311,12 @@ router.beforeEach((to, from, next) => {
 						path : to.fullpage
 					})
 				}else{
+					//记录当前链接
+					if(window.location.hash === ''){
+						Vue.prototype.$Global.LAST_URL = window.location.pathname + window.location.search;
+					}else{
+						Vue.prototype.$Global.LAST_URL = window.location.hash;
+					}
 					next({
 						path : '/login'
 					})
@@ -321,6 +328,12 @@ router.beforeEach((to, from, next) => {
 		}
 	}else if(!localCode){
 		if(login_token == '' && LoginAuth){
+			//记录当前链接
+			if(window.location.hash === ''){
+				Vue.prototype.$Global.LAST_URL = window.location.pathname + window.location.search;
+			}else{
+				Vue.prototype.$Global.LAST_URL = window.location.hash;
+			}
 			next({
 				path : '/login'
 			})

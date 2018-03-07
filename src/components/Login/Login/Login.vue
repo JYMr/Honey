@@ -108,10 +108,17 @@ export default{
 				}).then((res)=>{
 					if(res.data.status == 0){
 						this.$token = res.data.data.token;
-						localStorage.setItem("login_code",res.data.data.code)
-						this.$router.replace({
-							path: '/Index'
-						})
+						localStorage.setItem("login_code",res.data.data.code);
+						if(this.$Global.LAST_URL != undefined && this.$Global.LAST_URL != ''){
+							this.$router.replace({
+								path: this.$Global.LAST_URL
+							})
+							this.$Global.LAST_URL = '';
+						}else{
+							this.$router.replace({
+								path: '/Index'
+							})
+						}
 					}else{
 						this.$Toast.show({
 							type: 1,

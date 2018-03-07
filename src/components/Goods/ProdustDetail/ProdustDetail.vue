@@ -60,7 +60,7 @@
 
 	    <footer>
 	        <div class="bar-btn" v-on:click="AddCollection">
-	            <div class="like_content like"></div>
+	            <div :class="'like_content' + (isCollection ? ' like' : '')"></div>
 	            <span>收藏</span>
 	        </div>
 	        <div class="bar-btn">
@@ -89,6 +89,7 @@ export default{
 	data(){
 		return {
 			Customer: '../static/images/customer.png',
+			isCollection: false,
 			id : this.$route.query.id,
 			Produst: {},
 			Produst_banner_list : {
@@ -119,6 +120,9 @@ export default{
 				}
 			})
 		},
+		GetCollection(){
+
+		},
 		AddCart(){
 			//加入购物车
 			this.$axios.request({
@@ -137,7 +141,6 @@ export default{
 			});
 		},
 		specFun(index){
-			console.log('click')
 			for(let key in this.Produst.spec){
 				let temp = 0;
 				if(key == index){

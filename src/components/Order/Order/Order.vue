@@ -1,5 +1,7 @@
 <template>
-	<div class="order">
+	<div class="order topNav">
+
+		<TitleHeader :seller="title"></TitleHeader>
 
 	    <div class="order-tab">
 	    	<div class="order-tab-item" :class="{'active':status == item.status}" v-for="(item,index) of OrderStatus"  @click="LinkToStatus(index)">{{item.title}}</div>
@@ -69,6 +71,7 @@
 <script type="text/javascript">
 
 import OrderProductItem from '@/components/Order/OrderProductItem/OrderProductItem'
+import TitleHeader from '@/components/Common/TitleHeader/TitleHeader'
 	
 export default{
 	data(){
@@ -79,7 +82,8 @@ export default{
 			isNeedLoad : true,//上拉加载阀值,防止多次请求
 			Loadstatus : 0,//上拉加载状态 0:未加载 1:加载中 2:所有加载完成
 			No : 1,
-			PageSize: 8
+			PageSize: 8,
+			title: '订单中心'
 		}
 	},
 	mounted(){
@@ -148,13 +152,15 @@ export default{
 				}
 			})
 		},
-		LinkOrderDetail(sn){
+		LinkOrderDetail(sn, event){
 			this.$router.push({
 				path: "/OrderDetail",
 				query:{
 					ordersn: sn
 				}
 			})
+			event.stopPropagation();
+			return false;
 		}
 	},
 	watch:{
@@ -168,7 +174,8 @@ export default{
 		window.removeEventListener('scroll',this.ListenScroll);
 	},
 	components:{
-		OrderProductItem
+		OrderProductItem,
+		TitleHeader
 	}
 }
 

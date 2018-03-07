@@ -16,12 +16,17 @@
 		<div class="orderProduct">
 			<div class="OrderProductList">
 	            <!-- 订单商品 开始 -->
-	            <OrderProductItem v-for="item of OrderDetail.goodsList" :seller="item"></OrderProductItem>
+	            <OrderProductItem v-for="(item, index) of OrderDetail.goodsList" :seller="item" :key="index"></OrderProductItem>
 	            <!-- 订单商品 结束 -->
 	        </div>
 		</div>
+
+		<div class="orderAddress">
+			<span>{{OrderDetail.name}} <span class="fr">{{OrderDetail.phone}}</span></span>
+			<span>{{OrderDetail.province}}{{OrderDetail.city}}{{OrderDetail.area}}{{OrderDetail.address}}</span>
+		</div>
 	</div>
-</template>
+</template> 
 
 <script type="text/javascript">
 	

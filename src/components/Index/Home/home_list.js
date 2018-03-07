@@ -20,7 +20,7 @@ const home_list_data = {
 		{
 			"src":"./static/images/list5.png",
 			"title":"账号管理",
-			"path": "/Address"
+			"path": "/PersonalSettings"
 		}/*,
 		{
 			"src":"./static/images/list6.png",

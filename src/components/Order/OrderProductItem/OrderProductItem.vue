@@ -3,9 +3,9 @@
         <div class="produst-img"><img :src="produstitem.src" alt=""></div>
         <div class="produst-data">
             <h4>{{produstitem.title}}</h4>
-            <div class="produst-data-info">
+            <div class="produst-data-info clearfix">
                 <span class="price">￥{{produstitem.marketprice}}</span>
-                <span class="num">x1</span>
+                <span class="num">x{{produstitem.total}}</span>
             </div>
         </div>
     </div>

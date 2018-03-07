@@ -13,7 +13,7 @@
 	            <label>用户名</label>
 	            <div>
 	                Eminem
-	                <img src="right_arrow.png" class="fr">
+	                <img src="static/images/right_arrow.png" class="fr">
 	            </div>
 	        </div>
 
@@ -21,7 +21,7 @@
 	            <label>个性签名</label>
 	            <div>
 	                我告诉你，你买不起
-	                <img src="images/right_arrow.png" class="fr">
+	                <img src="static/images/right_arrow.png" class="fr">
 	            </div>
 	        </div>
 

@@ -2,3 +2,6 @@
 .orderStatus span{display: block;}
 
 .orderProduct{background-color: #FFF;margin-top: 0.267rem;padding: 0.267rem;}
+
+.orderAddress{font-size: 0.375rem;padding: 0.312rem;background-color: #FFF;margin-top: 0.312rem;line-height: 0.656rem;}
+.orderAddress span{display: block;}
