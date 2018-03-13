@@ -127,7 +127,10 @@ export default{
 						this.disable = false;
 						this.loginVal = '登录'
 					}
-				})
+				}).catch((err)=>{
+					this.disable = false;
+					this.loginVal = '登录'
+				});
 			}else{
 				this.$Toast.show({
 					type:1,

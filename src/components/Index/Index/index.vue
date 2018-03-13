@@ -10,6 +10,8 @@
 
 		<!-- <Banner :seller="Banner_data"></Banner> -->
 
+		<CategoryBanner :seller="categoryData" :col="2" :row="4"></CategoryBanner>
+
 		<div class="produst-group">
 		
 			<div class="produst-group-title">
@@ -34,6 +36,7 @@
 <script>
 import axios from 'axios'
 import Banner from '@/components/Common/Banner/Banner'
+import CategoryBanner from '@/components/Common/CategoryBanner/CategoryBanner'
 import ProdustItem from '@/components/Common/ProdustItem/ProdustItem'
 
 export default{
@@ -42,6 +45,40 @@ export default{
 			Banner_data : {
 				data:[]
 			},//Banner数据
+			categoryData:[
+				{
+					text: "首页",
+					icon: "static/images/emoji-1.png"	
+				},
+				{
+					text: "首页",
+					icon: "static/images/emoji-2.png"	
+				},
+				{
+					text: "首页",
+					icon: "static/images/emoji-3.png"	
+				},
+				{
+					text: "首页",
+					icon: "static/images/emoji-4.png"	
+				},
+				{
+					text: "首页",
+					icon: "static/images/emoji-5.png"	
+				},
+				{
+					text: "首页",
+					icon: "static/images/emoji-6.png"	
+				},
+				{
+					text: "首页",
+					icon: "static/images/emoji-7.png"	
+				},
+				{
+					text: "首页",
+					icon: "static/images/emoji-8.png"	
+				}
+			],
 			SearchKeyWord: '',//搜索框值
 			ProdustList: [],//产品列表数据
 			isNeedLoad : true,//上拉加载阀值,防止多次请求
@@ -65,14 +102,13 @@ export default{
 				path : '/ProdustList',
 				query: {keyword: this.SearchKeyWord}
 			});
-
 		},
 		GetBanner(callback){
 			//获取Banner图片数据
 			let _self =this;
 			this.$axios.get('static/data.json').then((res)=>{
 				_self.Banner_data.data = res.data.banner;
-				if(callback && typeof callback == 'function') callback();	
+				if(callback && typeof callback == 'function') callback();
 			});
 		},
 		GetHotProdust(callback){
@@ -110,7 +146,6 @@ export default{
 			});
 		},
 		ListenScroll(){
-			console.log(document.body.scrollTop)
 			//监听滚动：触底加载
 			let _self = this;
 			if(_self.isNeedLoad){
@@ -126,11 +161,11 @@ export default{
 	},
 	components:{
 		Banner,
-		ProdustItem
+		ProdustItem,
+		CategoryBanner
 	},
 	watch:{
 		SearchKeyWord(newVal,oldVal){
-			console.log(newVal)
 		}
 	},
 	beforeDestroy(){
