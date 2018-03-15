@@ -4,7 +4,7 @@
             <input type="checkbox" :id="'checkbox-'+index" v-model="checkboxStatus">
             <label :for="'checkbox-'+index"></label>
         </div>
-        <div class="produst-img"><img :src="DefaultImg" alt=""></div>
+        <div class="produst-img"><img :src="seller.src || DefaultImg" alt=""></div>
         <div class="produst-data">
             <h4>{{seller.title}}</h4>
             <div class="produst-data-info">
