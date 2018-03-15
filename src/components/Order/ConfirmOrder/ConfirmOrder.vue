@@ -41,7 +41,7 @@
 
                         <!-- 配送方式，商品共计 -->
                         <div class="star-score clearfix">
-                            <span>配送方式</span>
+                            <span>配送方式: 快递</span>
 							<span v-if="ExpressPrice != 0">运费<em>{{ExpressPrice}}</em>元</span>
                         </div>
 
@@ -56,11 +56,17 @@
                 </ul>
             </div>
 
+            <div class="remark input-content-1">
+            	<div class="input-item">
+            		<input type="text" name="" placeholder="给卖家的备注" v-model="remark">
+            	</div>
+            </div>
+
             <div class="pay-way-container">
 				<h3>支付方式</h3>
 				<div class="pay-way clearfix">
 					<div class="radiogroup">
-						<input type="radio" id="radiobox1" name="pay-way">
+						<input type="radio" id="radiobox1" name="pay-way" v-model="payType" value="0">
 						<label for="radiobox1"></label>
 					</div>
 					<label for="radiobox1">
@@ -71,7 +77,7 @@
 
 				<div class="pay-way clearfix">
 					<div class="radiogroup">
-						<input type="radio" id="radiobox2" name="pay-way">
+						<input type="radio" id="radiobox2" name="pay-way" v-model="payType" value="1">
 						<label for="radiobox2"></label>
 					</div>
 					<label for="radiobox2">
@@ -82,7 +88,7 @@
 
 				<div class="pay-way clearfix">
 					<div class="radiogroup">
-						<input type="radio" id="radiobox3" name="pay-way">
+						<input type="radio" id="radiobox3" name="pay-way" v-model="payType" value="2">
 						<label for="radiobox3"></label>
 					</div>
 					<label for="radiobox3">
@@ -111,7 +117,9 @@ export default{
 			Total: 0,
 			TotalPrice: 0,
 			ExpressPrice: 0,
-			AddressId: undefined
+			AddressId: undefined,
+			remark: '',
+			payType: 0
 		}
 	},
 	mounted(){
@@ -170,6 +178,35 @@ export default{
 					title: "获取地址数据失败，请刷新重试",
 					time: 1000
 				});
+			});
+		},
+		ConfirmOrder(){
+			this.$Toast.show({
+				type: 5,
+				time: 0
+			});
+			this.$axios.request({
+				url: this.$url + 'Api.htm',
+				methods: 'get',
+				params:{
+					token: this.$token,
+					method: 'ConfirmOrder',
+					payid: this.payType,
+					aid: this.Address.id,
+					remark: this.remark
+				}
+			}).then((res)=>{
+				if(res.data.status == 0){
+					//Handle
+				}
+				this.$Toast.close();
+			}).catch((err)=>{
+				this.$Toast.show({
+					type: 1,
+					title: "网络异常，请重试",
+					time: 1000
+				});
+				this.$Toast.close();
 			});
 		}
 	}

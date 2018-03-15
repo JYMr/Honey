@@ -46,3 +46,6 @@
 
 .address-content{font-size: .375rem;background-color: #FFF;margin-bottom: 0.312rem;padding: 0.312rem;line-height: .781rem;}
 .address-content .mobile{float: right;font-size: 0.325rem;}
+
+.remark{margin-bottom: 0.312rem;padding: 0 0.312rem;background-color: #FFF;}
+.remark input{text-align: right;}
