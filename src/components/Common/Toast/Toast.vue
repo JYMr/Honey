@@ -162,7 +162,7 @@ export default{
 			let PhotoType = ['jpg','jpeg','png','gif'];
 			let isPhoto = PhotoType.indexOf(img_path.split('.').pop().toLowerCase());
 			if(isPhoto != -1){
-				this.img = '<img src="'+require('./asset/'+ img_path)+'">' ;
+				this.img = require('./asset/'+ img_path);
 			}else{
 				this.imgHtml = img_path
 			}

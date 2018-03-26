@@ -61,6 +61,7 @@ export default{
 					this.$Toast.close();
 					let temp_List = res.data.CartList;
 					this.Cart_list = this.Cart_list.concat(temp_List);
+					console.log(this.Cart_list)
 				}
 			})
 		},
