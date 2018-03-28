@@ -149,7 +149,7 @@ export default{
 			//监听滚动：触底加载
 			let _self = this;
 			if(_self.isNeedLoad){
-				if(document.body.scrollHeight - window.innerHeight <= document.body.scrollTop){
+				if(document.body.scrollHeight - window.innerHeight <= document.documentElement.scrollTop){
 					_self.isNeedLoad = false;
 					_self.No += 1;
 					_self.GetHotProdust(function(){
@@ -169,6 +169,7 @@ export default{
 		}
 	},
 	beforeDestroy(){
+		console.log('Index Destroy')
 		window.removeEventListener('scroll',this.ListenScroll);
 	}
 }
