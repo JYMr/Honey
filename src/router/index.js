@@ -298,7 +298,6 @@ router.beforeEach((to, from, next) => {
 
 	if(localCode){
 		//有登录码
-		console.log(login_token)
 		if(!LoginAuth && login_token == ''){
 			//无需用户验证
 			AutoLogin();
