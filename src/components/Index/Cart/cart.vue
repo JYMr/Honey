@@ -2,8 +2,13 @@
 	 <div class="cart-list">
 	 	<CartItem v-for="(item,index) in Cart_list" :key="index" :seller.sync="item" :ischoose.sync="item.ischoose"  :index="index" v-on:DelItem="DelItemFunc(index)"></CartItem>
 
+	 	<div class="cart-empty" v-if="Cart_list.length === 0">
+	 		<img src="static/images/cart_empty.png" alt="">
+	 		<span>购物车空空的耶</span>
+	 	</div>
+
 	 	<!-- 购物车结算栏 开始 -->
-	    <div class="cart-bar">
+	    <div class="cart-bar"  v-if="Cart_list.length !== 0">
 	        <div class="checkgroup">
 	            <input type="checkbox" id="checkbox" v-model="isAllChecked">
 	            <label for="checkbox"></label>
