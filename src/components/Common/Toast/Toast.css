@@ -12,9 +12,10 @@
 .model-select .model-btn .Tapbtn{font-size: 14px;line-height: 1rem;width: 100%;text-align: center;}
 .model-select .model-btn .Tapbtn+ .Tapbtn{border-top: .03125rem solid #e5e5e5;}
 
-.loading{font-size: 12px;position: fixed;z-index: 9999;top: 50%;right: 0;left: 0;width: 2rem;margin: auto;padding: .25rem .15625rem;transform: translateY(-50%);text-align: center;border-radius: .25rem;background-color: rgba(0,0,0,.6);}
+.loading{font-size: 12px;position: fixed;z-index: 9999;top: 50%;right: 0;left: 0;width: 2rem;margin: auto;padding: .25rem .15625rem;transform: translateY(-50%);text-align: center;border-radius: .3rem;background-color: rgba(0,0,0,.6);}
 .loading .model-img img{width: 1.2rem;height: 1.2rem;}
 .loading .model-html{position: relative;height: 2rem;}
+.loading .model-html.hasTitle{height: 1.45rem;}
 .loading .model-title{margin-top: .2rem;color: #fff;}
 
 /*Toast动画样式*/
