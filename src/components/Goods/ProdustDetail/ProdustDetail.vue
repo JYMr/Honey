@@ -99,6 +99,7 @@ export default{
 	},
 	created(){
 		this.GetProdustDetail();
+		this.GetCollection();
 	},
 	methods:{
 		GetProdustDetail(){
@@ -121,7 +122,22 @@ export default{
 			})
 		},
 		GetCollection(){
-
+			//获取用户是否收藏
+			if(this.$token !== ''){
+				this.$axios.request({
+					url: this.$url + 'Api.htm',
+					methods: 'get',
+					params:{
+						method : 'getCollectionCount',
+						gid: this.id,
+	                    token: this.$token,
+					}
+				}).then((res)=>{
+					if(res.data.status == 0){
+						this.isCollection = res.data.msg == '1';
+					}
+				});
+			}
 		},
 		AddCart(){
 			//加入购物车
@@ -170,6 +186,7 @@ export default{
 						title: '收藏成功',
 						type: 1
 					})
+					this.isCollection = true;
 				}
 			})
 		}

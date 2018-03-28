@@ -6,5 +6,6 @@
 		.produst-item-text{padding: 0 .156rem;}
 		.produst-item-text .produst-item-name{font-size: .375rem;line-height: 0.969rem;height: .969rem;color: #333;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
 		.produst-item-text .produst-item-price{line-height: .969rem;border-top: .031rem solid #f2f2f2;}
+		.produst-item-text .produst-item-price span{display: inline-block;float: left;}
 		.produst-item-text .produst-item-price .price-1{font-size: .406rem;color: #e5383a;}
 		.produst-item-text .produst-item-price .price-2{font-size: .312rem;text-decoration: line-through;color: #ccc;}
