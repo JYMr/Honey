@@ -59,7 +59,7 @@
 
 
 	    <footer>
-	        <div class="bar-btn" v-on:click="AddCollection">
+	        <div class="bar-btn" v-on:click="Collection">
 	            <div :class="'like_content' + (isCollection ? ' like' : '')"></div>
 	            <span>收藏</span>
 	        </div>
@@ -152,7 +152,15 @@ export default{
 				}
 			}).then((res)=>{
 				if(res.data.status == 0){
-					console.log('添加成功');
+					this.$Toast.show({
+						title: '已经成功加入购物车',
+						type: 1
+					});
+				}else{
+					this.$Toast.show({
+						title: res.data.msg,
+						type: 1
+					});
 				}
 			});
 		},
@@ -165,30 +173,66 @@ export default{
 				this.Produst.spec[key].isSpec = temp;
 			}
 		},
-		AddCollection(){
+		Collection(){
+			//收藏操作
+
+			//无登录状态时，跳转登录页面
 			if(!this.$token){
 				this.$router.push({
 					path: '/Login'
 				})
 				return;
 			}
-			this.$axios.request({
-				url: this.$url + 'Api.htm',
-				methods: 'get',
-				params:{
-					method : 'setCollection',
-                    token: this.$token,
-                    gid : this.Produst.id
-				}
-			}).then((res)=>{
-				if(res.data.status == 0){
-					this.$Toast.show({
-						title: '收藏成功',
-						type: 1
-					})
-					this.isCollection = true;
-				}
-			})
+			if(this.isCollection){
+				//取消收藏操作
+				/*this.$axios.request({
+					url: this.$url + 'Api.htm',
+					type: 'get',
+					params:{
+						method: 'delCollection',
+						token: this.$token,
+						id : this.id
+					}
+				}).then((res)=>{
+					if(res.data.status == 0){
+						this.$Toast.show({
+							title: '取消收藏成功',
+							type: 1
+						});
+						this.isCollection = false;
+					}else{
+						this.$Toast.show({
+							title: res.data.msg,
+							type: 1
+						});
+					}
+				});*/
+			}else{
+				//未收藏
+				this.$axios.request({
+					url: this.$url + 'Api.htm',
+					methods: 'get',
+					params:{
+						method : 'setCollection',
+	                    token: this.$token,
+	                    gid : this.Produst.id
+					}
+				}).then((res)=>{
+					if(res.data.status == 0){
+						this.$Toast.show({
+							title: '收藏成功',
+							type: 1
+						})
+						this.isCollection = true;
+					}else{
+						this.$Toast.show({
+							title: res.data.msg,
+							type: 1
+						});
+					}
+				});
+			}
+			
 		}
 	},
 	components:{

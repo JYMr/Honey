@@ -28,6 +28,7 @@
 				<input type="checkbox" name="select" id="select-all" v-model="CheckedAll">
 				<label for="select-all"></label>
 			</div>
+			<label for="select-all">全选</label>
 			<div class="btn-delete" v-on:click="DelColleact">删除</div>
 		</div>
 
@@ -79,7 +80,6 @@
 					}
 				}
 				DelList = DelList.substring(0,DelList.length-1);
-				alert(DelList)
 				if(DelList.length == ''){
 					this.$Toast.show({
 						title: '请选择要取消收藏的商品',

@@ -1,4 +1,4 @@
-.collect{ width: 100%; padding: 0.375rem 0.375rem 0.375rem;  box-sizing: border-box; }
+.collect{ width: 100%; padding: 0.375rem 0.375rem 0.375rem;  box-sizing: border-box; background-color: #FFF;}
 .collect + .collect{border-top: 0.03125rem solid #e5e5e5;}
 .collect .checkgroup{ float: left; height: 2.8125rem; margin: 0 0.171875rem 0 0; }
 .collect img{ float: left; width: 2.8125rem; height: 2.8125rem; margin: 0 0.3125rem 0 0; border: 0.03125rem solid #e5e5e5; border-radius: 0.15625rem; }
@@ -10,6 +10,7 @@
 .collect-empty img{height: 3.2rem;}
 .collect-empty span{display: block;font-size: 0.373rem;color:#666;padding: 0.267rem 0;}
 
-.select-footer{ position: fixed; bottom: 0; width: 10.0rem; height: 1.34375rem; padding: 0 0.375rem; background: #fcfcfc; border-top: 0.03125rem solid #d5d5d5; box-sizing: border-box; z-index: 999;}
+.select-footer{ position: fixed; bottom: 0; width: 10.0rem; height: 1.34375rem; padding: 0 0.375rem; background: #fcfcfc; border-top: 0.03125rem solid #d5d5d5; box-sizing: border-box; z-index: 1;font-size: 0.373rem;line-height: 1.34375rem;}
 .select-footer .checkgroup{ float: left; height: 1.34375rem; }
+.select-footer > label{margin-left: 0.133rem;}
 .select-footer .btn-delete{ position: absolute; top: 0; right: 0.375rem; bottom: 0; width: 1.84375rem; height: 0.859375rem; margin: auto; color: #fff; font-size: 0.375rem; text-align: center; line-height: 0.859375rem; background: #eeb40c; border-radius: 0.15625rem; }

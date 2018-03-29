@@ -155,7 +155,8 @@ const PersonalPath = [
 		},
 		meta: {
 			title: '我的收藏',
-			LoginAuth: true
+			LoginAuth: true,
+			backgroundColor: "#F5F5F5"
 		}
 	}
 ]
