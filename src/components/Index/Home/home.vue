@@ -15,7 +15,7 @@
 	        
 	        <div class="home-head-icon">
 	            <div class="home-head-img">
-	                <div class="home-head-editbtn"></div>
+	                <router-link to="/PersonalSettings" tag="div"  class="home-head-editbtn"></router-link>
 	                <img src="./asset/pic.png" alt="">
 	            </div>
 	            <div class="home-head-name">

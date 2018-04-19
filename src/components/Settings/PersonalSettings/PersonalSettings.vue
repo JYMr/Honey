@@ -12,17 +12,19 @@
 	        <div class="home-data-input">
 	            <label>用户名</label>
 	            <div>
-	                Eminem
-	                <img src="static/images/right_arrow.png" class="fr">
+	                <input type="text" name="" value="Eminem" v-model="name" />
 	            </div>
 	        </div>
 
 	        <div class="home-data-input">
 	            <label>个性签名</label>
 	            <div>
-	                我告诉你，你买不起
-	                <img src="static/images/right_arrow.png" class="fr">
+	                <input type="text" name="" value="我告诉你，你买不起" v-model="signature" />
 	            </div>
+	        </div>
+
+	        <div class="btn-content">
+	        	<button class="btn btn-default" @click="setPersonalData">保存</button>
 	        </div>
 
 	    </div>
@@ -33,7 +35,68 @@
 <script type="text/javascript">
 	
 export default{
-
+	data(){
+		return {
+			name: '',
+			signature: ''
+		}
+	},
+	mounted(){
+		this.getPersonalData();
+	},
+	methods:{
+		getPersonalData(){
+			this.$Toast.show({
+				type:5,
+				time: 0
+			});
+			this.$axios.request({
+				url: this.$url + 'Api.htm',
+				methods: 'get',
+				params:{
+					token: this.$token,
+					method: 'getMember'
+				}
+			}).then((res)=>{
+				if(res.data.status == 0){
+					this.name = res.data.data.member.nikeName;
+					this.signature = res.data.data.member.signature;
+				}
+				this.$Toast.close();
+			});
+		},
+		setPersonalData(){
+			this.$Toast.show({
+				type:5,
+				time: 0
+			});
+			this.$axios.request({
+				url: this.$url + 'Api.htm',
+				methods: 'get',
+				params:{
+					token: this.$token,
+					method: 'updateMember',
+					nikeName: this.name,
+					signature: this.signature,
+				}
+			}).then((res)=>{
+				if(res.data.status == 0){
+					this.$Toast.show({
+						type: 1,
+						title: '修改成功'
+					});
+					this.$router.push({
+						path: '/Home'
+					})
+				}else{
+					this.$Toast.show({
+						type: 1,
+						title: '修改失败'
+					});
+				}
+			});
+		}
+	}
 }
 
 </script>

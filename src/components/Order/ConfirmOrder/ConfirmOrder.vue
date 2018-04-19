@@ -186,7 +186,7 @@ export default{
 				time: 0,
 				title: '提交中'
 			});
-			/*this.$axios.request({
+			this.$axios.request({
 				url: this.$url + 'Api.htm',
 				methods: 'get',
 				params:{
@@ -199,6 +199,23 @@ export default{
 			}).then((res)=>{
 				if(res.data.status == 0){
 					//Handle
+					this.$Toast.close();
+					this.$Toast.show({
+						type: 5,
+						time: 0,
+						title: '支付中'
+					});
+					setTimeout(()=>{
+						this.$Toast.show({
+							type: 5,
+							time: 1500,
+							toasttype: 'success',
+							title: '支付成功'
+						});
+						this.$router.replace({
+							path: "./Order"
+						});
+					},3000);
 				}
 				this.$Toast.close();
 			}).catch((err)=>{
@@ -208,26 +225,8 @@ export default{
 					time: 1000
 				});
 				this.$Toast.close();
-			});*/
-			setTimeout(()=>{
-				this.$Toast.show({
-					type: 5,
-					time: 0,
-					title: '支付中'
-				});
-				setTimeout(()=>{
-					this.$Toast.show({
-						type: 5,
-						time: 0,
-						toasttype: 'success',
-						title: '支付成功'
-					});
-					this.$Toast.close();
-					this.$router.replace({
-						path: "./Order"
-					});
-				},3000);
-			},2000);
+			});
+			
 		}
 	}
 }

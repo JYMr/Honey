@@ -163,7 +163,7 @@ export default{
 			})
 		},
 		LinkAddressEdit(id, event){
-			this.$router.replace({
+			this.$router.push({
 				path: '/AddressEdit',
 				query: {
 					aid : id
